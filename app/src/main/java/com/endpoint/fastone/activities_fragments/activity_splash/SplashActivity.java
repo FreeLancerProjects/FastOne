@@ -3,19 +3,28 @@ package com.endpoint.fastone.activities_fragments.activity_splash;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.endpoint.fastone.R;
+import com.endpoint.fastone.activities_fragments.activity_home.client_home.activity.ClientHomeActivity;
+import com.endpoint.fastone.activities_fragments.activity_sign_in.activity.SignInActivity;
 import com.endpoint.fastone.activities_fragments.intro_slider.MainScreen;
 import com.endpoint.fastone.language.Language_Helper;
+import com.endpoint.fastone.models.UserModel;
 import com.endpoint.fastone.preferences.Preferences;
+import com.endpoint.fastone.singletone.UserSingleTone;
+import com.endpoint.fastone.tags.Tags;
 
 
 public class SplashActivity extends AppCompatActivity {
 
     private FrameLayout fl;
+    private ImageView logo,ic_splash;
     private Preferences preferences;
 
     private String current_lang;
@@ -48,10 +57,12 @@ public class SplashActivity extends AppCompatActivity {
 
 
 
-       /* preferences = Preferences.getInstance();
-        fl = findViewById(R.id.fl);
+        preferences = Preferences.getInstance();
+        logo = findViewById(R.id.imgLogo);
+        ic_splash = findViewById(R.id.imgSplash);
+
         Animation animation = AnimationUtils.loadAnimation(this,R.anim.fade);
-        fl.startAnimation(animation);
+        logo.startAnimation(animation);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -84,6 +95,11 @@ public class SplashActivity extends AppCompatActivity {
             public void onAnimationRepeat(Animation animation) {
 
             }
-        });*/
+        });
+
+
+
+        Animation animation2 = AnimationUtils.loadAnimation(this,R.anim.translate);
+        ic_splash.startAnimation(animation2);
     }
 }

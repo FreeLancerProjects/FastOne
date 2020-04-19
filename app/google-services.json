@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1026037382625",
+    "firebase_url": "https://fast-one-22127.firebaseio.com",
+    "project_id": "fast-one-22127",
+    "storage_bucket": "fast-one-22127.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1026037382625:android:6180b30aea15d0d7a4e6a0",
+        "android_client_info": {
+          "package_name": "com.endpoint.fastone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1026037382625-mq99t3c4ekcm1qefap8t6kps8b4pbg53.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeCs2gEgCMDd-ZBJ9eSTpu2FEfmaWniFE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1026037382625-mq99t3c4ekcm1qefap8t6kps8b4pbg53.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
