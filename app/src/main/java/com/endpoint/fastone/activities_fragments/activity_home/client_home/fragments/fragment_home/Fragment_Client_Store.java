@@ -31,6 +31,7 @@ import com.endpoint.fastone.adapters.NearbyAdapter;
 import com.endpoint.fastone.adapters.QueryAdapter;
 import com.endpoint.fastone.adapters.SliderAdapter;
 import com.endpoint.fastone.models.CategoryModel;
+import com.endpoint.fastone.models.LocationModel;
 import com.endpoint.fastone.models.NearbyModel;
 import com.endpoint.fastone.models.NearbyStoreDataModel;
 import com.endpoint.fastone.models.PhotosModel;
@@ -45,6 +46,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Timer;
@@ -412,6 +414,7 @@ public class Fragment_Client_Store extends Fragment {
     private void updateUi(NearbyStoreDataModel nearbyStoreDataModel, Location location) {
 
 
+        LocationModel.setLocation(location);
 
 
         if (mainNearbyModelList.size()==0)
@@ -422,6 +425,7 @@ public class Fragment_Client_Store extends Fragment {
         }
 
         nearbyModelList.addAll(getPlaceModelFromResult(nearbyStoreDataModel.getResults()));
+        Collections.sort(nearbyModelList,PlaceModel.distanceComparator);
 
 
         recViewQueries.setVisibility(View.VISIBLE);
