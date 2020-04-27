@@ -4,8 +4,8 @@
     <!--AIzaSyArjmbYWTWZhDFFtPOLRLKYwjtBDkOEGrY-->
     <string name="facebook_app_id">[APP_ID]</string>
     <string name="fb_login_protocol_scheme">fb[APP_ID]</string>
-    <string name="map_api_key">AIzaSyDz07XWgRsDTQtmA4IOvx-fSIc1d_Wrk9c</string>
-    <string name="map_api_key2">AIzaSyArjmbYWTWZhDFFtPOLRLKYwjtBDkOEGrY</string>
+    <string name="map_api_key2">AIzaSyDhauu7VGauXPs9aX41Qw6mcB17iuIW2gI</string>
+    <string name="map_api_key">AIzaSyDhauu7VGauXPs9aX41Qw6mcB17iuIW2gI</string>
     <string name="notifications">Notifications</string>
     <string name="si_su">Please Sign in or sign up .</string>
     <string name="ok">Ok</string>
@@ -120,7 +120,7 @@
     <string name="choose_delivery_location">Choose Delivery Location</string>
     <string name="delivery_time">Delivery Time</string>
     <string name="check_here_to_choose_delivery_time">Check here to choose Delivery Time</string>
-    <string name="write_order_details">Write here the details of your order for example i want 1 Cheeseburger,1 Large Fries.Please write also how much is approximate cost of your order.</string>
+    <string name="write_order_details">Write here the details of your order </string>
     <string name="set_location_on_map">Set location on map</string>
     <string name="save_favorite_location">Save Favorite Location</string>
     <string name="name">Name</string>

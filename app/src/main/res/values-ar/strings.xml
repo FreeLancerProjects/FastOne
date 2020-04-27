@@ -3,8 +3,8 @@
     <string name="app_name">سريع ون</string>
     <string name="facebook_app_id">[APP_ID]</string>
     <string name="fb_login_protocol_scheme">fb[APP_ID]</string>
-    <string name="map_api_key">AIzaSyDz07XWgRsDTQtmA4IOvx-fSIc1d_Wrk9c</string>
-    <string name="map_api_key2">AIzaSyArjmbYWTWZhDFFtPOLRLKYwjtBDkOEGrY</string>
+    <string name="map_api_key2">AIzaSyDhauu7VGauXPs9aX41Qw6mcB17iuIW2gI</string>
+    <string name="map_api_key">AIzaSyDhauu7VGauXPs9aX41Qw6mcB17iuIW2gI</string>
     <string name="notifications">الإشعارات</string>
     <string name="si_su">قم بتسجيل الدخول أو إنشاء حساب جديد .</string>
     <string name="ok">حسنا</string>
@@ -118,7 +118,7 @@
     <string name="choose_delivery_location">إختر عنوان التوصيل</string>
     <string name="delivery_time">وقت التوصيل</string>
     <string name="check_here_to_choose_delivery_time">إضغط هنا لاختيار وقت التوصيل</string>
-    <string name="write_order_details">إكتب هنا تفاصيل طلبك من المحل مثلا: 1 هامبرجر بالجبنةو 1 بطاطس كبير ونرجو منك كتابة القيمة التقديرية للطلب حتى يتسنى للمندوب خدمتك.</string>
+    <string name="write_order_details">إكتب هنا تفاصيل طلبك حتى يتسنى للمندوب خدمتك.</string>
     <string name="set_location_on_map">حدد الموقع على الخريطة</string>
     <string name="save_favorite_location">حفظ الموقع في المفضلة</string>
     <string name="name">الاسم</string>
@@ -292,7 +292,7 @@
     <string name="active1">نشط</string>
     <string name="inactive1">غير نشط</string>
     <string name="all">الكل </string>
-    <string name="pharmacies">Pharmacies</string>
+    <string name="pharmacies">صيدليات</string>
     <string name="change">تغيير</string>
     <string name="display_times">أوقات العرض</string>
     <string name="user_reviews">تقييمات المستخدمين</string>

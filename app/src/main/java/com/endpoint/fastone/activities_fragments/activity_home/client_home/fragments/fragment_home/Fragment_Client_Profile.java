@@ -42,10 +42,10 @@ import retrofit2.Response;
 
 public class Fragment_Client_Profile extends Fragment {
 
-    private ImageView image_logout, image, arrow, arrow2, image_instagram, image_facebook, image_twitter, img_certified;
+    private ImageView image_logout, image, arrow, arrow2,arrow3, image_instagram, image_facebook, image_twitter, img_certified;
     private TextView tv_name, tv_balance, tv_order_count, tv_feedback, tv_certified, tv_coupons;
     private SimpleRatingBar rateBar;
-    private ConstraintLayout cons_setting, cons_register_delegate, cons_comment, cons_add_coupon;
+    private ConstraintLayout cons_setting, cons_register_delegate, cons_comment, cons_add_coupon,cons_banks;
     private LinearLayout ll_telegram, ll_certification;
     private String current_language;
     private ClientHomeActivity activity;
@@ -75,14 +75,17 @@ public class Fragment_Client_Profile extends Fragment {
 
         arrow = view.findViewById(R.id.arrow);
         arrow2 = view.findViewById(R.id.arrow2);
+        arrow3 = view.findViewById(R.id.arrow3);
 
         if (current_language.equals("ar")) {
             arrow.setImageResource(R.drawable.ic_left_arrow);
             arrow2.setImageResource(R.drawable.ic_left_arrow);
+            arrow3.setImageResource(R.drawable.ic_left_arrow);
 
         } else {
             arrow.setImageResource(R.drawable.ic_right_arrow);
             arrow2.setImageResource(R.drawable.ic_right_arrow);
+            arrow3.setImageResource(R.drawable.ic_right_arrow);
 
 
         }
@@ -103,6 +106,7 @@ public class Fragment_Client_Profile extends Fragment {
         tv_coupons = view.findViewById(R.id.tv_coupons);
         rateBar = view.findViewById(R.id.rateBar);
         cons_add_coupon = view.findViewById(R.id.cons_add_coupon);
+        cons_banks = view.findViewById(R.id.cons_banks);
 
         cons_register_delegate = view.findViewById(R.id.cons_register_delegate);
         cons_comment = view.findViewById(R.id.cons_comment);
@@ -151,11 +155,10 @@ public class Fragment_Client_Profile extends Fragment {
                 activity.DisplayFragmentAddCoupon();
             }
         });
-        ll_telegram.setOnClickListener(new View.OnClickListener() {
+        cons_banks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("https://web.telegram.org/#/im"));
-                startActivity(intent);
+                activity.DisplayFragmentBankAccount();
             }
         });
 
@@ -213,6 +216,23 @@ public class Fragment_Client_Profile extends Fragment {
         updateUI(userModel);
 
         getSocialMedia();
+        ll_telegram.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+             /*   Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("https://web.telegram.org/#/im"));
+                startActivity(intent);*/
+
+                try {
+
+                    Intent telegramIntent = new Intent(Intent.ACTION_VIEW);
+                    telegramIntent.setData(Uri.parse("http://telegram.me/"+telegram));
+                    startActivity(telegramIntent);
+
+                } catch (Exception e) {
+                    // show error message
+                }
+            }
+        });
 
     }
 
