@@ -314,5 +314,8 @@
     <string name="stcPay">Stc Pay</string>
     <string name="rate_of_category">تقييم القسم</string>
     <string name="rate_this">قيم هذا</string>
+    <string name="blog">مدونة</string>
+    <string name="social_media">وسائل التواصل</string>
+    <string name="not_av">غير متاح حاليا</string>
 
 </resources>

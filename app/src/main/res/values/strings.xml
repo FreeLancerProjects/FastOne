@@ -317,4 +317,7 @@
     <string name="stcPay">Stc Pay</string>
     <string name="rate_of_category">Rate OF Category</string>
     <string name="rate_this">Rate This</string>
+    <string name="blog">Blog</string>
+    <string name="social_media">Social  Media</string>
+    <string name="not_av">Not Available now</string>
 </resources>

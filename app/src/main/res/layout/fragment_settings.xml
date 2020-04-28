@@ -242,6 +242,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
+                android:visibility="gone"
                 android:background="@color/gray5"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -252,6 +253,7 @@
                 tools:ignore="RtlCompat,RtlSymmetry"
                 android:background="@color/white"
 
+                android:visibility="gone"
                 >
                 <TextView
                     android:layout_width="wrap_content"
@@ -283,6 +285,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
+                android:visibility="gone"
                 android:background="@color/gray5"/>
 
 
@@ -293,6 +296,7 @@
                 android:paddingStart="16dp"
                 tools:ignore="RtlCompat,RtlSymmetry"
                 android:background="@color/white"
+                android:visibility="gone"
 
                 >
                 <TextView
@@ -373,6 +377,7 @@
                 android:gravity="center_vertical"
                 android:text="@string/help"
                 android:textSize="16sp"
+                android:visibility="gone"
                 android:textStyle="bold"
                 />
 
@@ -384,6 +389,7 @@
                 tools:ignore="RtlCompat,RtlSymmetry"
                 android:background="@color/white"
 
+                android:visibility="gone"
                 >
                 <TextView
                     android:layout_width="wrap_content"
