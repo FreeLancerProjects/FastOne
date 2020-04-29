@@ -83,14 +83,16 @@
                 android:orientation="horizontal"
                 >
                 <ImageView
-                    android:id="@+id/imgTwitter"
+                    android:id="@+id/imgEmail"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_margin="5dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/ic_twitter"
+                    android:src="@drawable/ic_gmail"
+
                     >
                 </ImageView>
+
                 <ImageView
                     android:id="@+id/imginstgram"
                     android:layout_width="0dp"
@@ -117,17 +119,16 @@
                     android:src="@drawable/ic_facebook"
                     >
                 </ImageView>
+
                 <ImageView
-                    android:id="@+id/imgTelegram"
+                    android:id="@+id/imgTwitter"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_margin="5dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/ic_telegram"
-
+                    android:src="@drawable/ic_twitter"
                     >
                 </ImageView>
-
             </LinearLayout>
             <LinearLayout
                 android:columnWidth="100dp"

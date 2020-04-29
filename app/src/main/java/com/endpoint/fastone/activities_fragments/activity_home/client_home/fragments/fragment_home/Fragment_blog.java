@@ -40,8 +40,8 @@ import retrofit2.Response;
 public class Fragment_blog extends Fragment {
 
     private ClientHomeActivity activity;
-    private ImageView arrow_back,imgFacebook,imgTwitter,imgTelgram,imgWhats,imgSnapchat,imgInstgram;
-    private String current_language,facebook,telegram,twitter,instegram,snapchat,whats;
+    private ImageView arrow_back,imgFacebook,imgTwitter,imgEmail,imgWhats,imgSnapchat,imgInstgram;
+    private String current_language,facebook,telegram,twitter,instegram,snapchat,whats,email;
     private ConstraintLayout cons_back;
     private UserSingleTone userSingleTone;
 
@@ -67,7 +67,7 @@ public class Fragment_blog extends Fragment {
         imgFacebook = view.findViewById(R.id.imgfacebook);
         imgInstgram = view.findViewById(R.id.imginstgram);
         imgSnapchat = view.findViewById(R.id.imgSnapchat);
-        imgTelgram = view.findViewById(R.id.imgTelegram);
+        imgEmail = view.findViewById(R.id.imgEmail);
         imgWhats = view.findViewById(R.id.imgWhats);
         imgTwitter = view.findViewById(R.id.imgTwitter);
 
@@ -89,17 +89,18 @@ public class Fragment_blog extends Fragment {
             }
         });
         getSocialMedia();
-        imgTelgram.setOnClickListener(new View.OnClickListener() {
+        imgEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("message/rfc822");
+                i.putExtra(Intent.EXTRA_EMAIL  , new String[]{email});
+                i.putExtra(Intent.EXTRA_SUBJECT, "Fast One");
+                i.putExtra(Intent.EXTRA_TEXT   , "body of email");
                 try {
-
-                    Intent telegramIntent = new Intent(Intent.ACTION_VIEW);
-                    telegramIntent.setData(Uri.parse("http://telegram.me/"+telegram));
-                    startActivity(telegramIntent);
-
-                } catch (Exception e) {
-                    // show error message
+                    startActivity(Intent.createChooser(i, "Send mail..."));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(getContext(), "There are no email clients installed.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -191,6 +192,7 @@ public class Fragment_blog extends Fragment {
                             telegram = response.body().getCompany_telegram();
                             snapchat = response.body().getCompany_snapchat();
                             whats = response.body().getCompany_whatsapp();
+                            email=response.body().getCompany_emails();
 
 
                         } else {

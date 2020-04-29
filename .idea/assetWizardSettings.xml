@@ -187,8 +187,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_whatsapp" />
-                            <entry key="sourceFile" value="C:\Users\moham\Downloads\whatsapp.svg" />
+                            <entry key="outputName" value="ic_gmail" />
+                            <entry key="sourceFile" value="C:\Users\moham\Downloads\gmail.svg" />
                           </map>
                         </option>
                       </PersistentState>
