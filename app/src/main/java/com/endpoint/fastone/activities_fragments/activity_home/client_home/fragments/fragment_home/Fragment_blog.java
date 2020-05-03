@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
@@ -40,7 +41,8 @@ import retrofit2.Response;
 public class Fragment_blog extends Fragment {
 
     private ClientHomeActivity activity;
-    private ImageView arrow_back,imgFacebook,imgTwitter,imgEmail,imgWhats,imgSnapchat,imgInstgram;
+    private ImageView arrow_back;
+    private CardView imgFacebook,imgTwitter,imgEmail,imgWhats,imgSnapchat,imgInstgram;
     private String current_language,facebook,telegram,twitter,instegram,snapchat,whats,email;
     private ConstraintLayout cons_back;
     private UserSingleTone userSingleTone;

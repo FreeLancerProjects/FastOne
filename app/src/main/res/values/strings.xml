@@ -320,4 +320,10 @@
     <string name="blog">Blog</string>
     <string name="social_media">Social  Media</string>
     <string name="not_av">Not Available now</string>
+    <string name="contact_email_address">Connect with us on gmail account</string>
+    <string name="contact_instgram">Connect with us on Instgram</string>
+    <string name="contact_twitter">Connect with us on Twitter</string>
+    <string name="contact_facebook">Connect with us on Facebook</string>
+    <string name="contact_whats">Connect with us on whats Up</string>
+    <string name="contact_snap">Connect with us on Snap chat</string>
 </resources>

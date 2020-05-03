@@ -317,5 +317,11 @@
     <string name="blog">مدونة</string>
     <string name="social_media">وسائل التواصل</string>
     <string name="not_av">غير متاح حاليا</string>
+    <string name="contact_email_address">تواصل معنا عبر البريد الالكترونى</string>
+    <string name="contact_instgram">تواصل معنا عبر الأنستجرام</string>
+    <string name="contact_twitter">تواصل معنا عبر تويتر</string>
+    <string name="contact_facebook">تواصل معنا عبر الفيس بوك</string>
+    <string name="contact_whats">تواصل معنا عبر الواتس اب</string>
+    <string name="contact_snap">تواصل معنا عبر سناب شات</string>
 
 </resources>
