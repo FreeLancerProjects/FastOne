@@ -44,11 +44,16 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyHold
     public void onBindViewHolder(@NonNull final MyHolder holder, int position) {
         final CategoryModel.Data categoryModel = categoryModelList.get(position);
         tv_title.setText(categoryModel.getWord().getTitle());
-        if (categoryModel.getWord().getContent() != null && categoryModel.getWord().getContent().length() <= 30) {
-            tv_details.setText(categoryModel.getWord().getContent());
-        } else {
-//            tv_details.setText(categoryModel.getWord().getContent().substring(0, 20) + "...");
+        try {
+            if (categoryModel.getWord().getContent() != null && categoryModel.getWord().getContent().length() <= 30) {
+                tv_details.setText(categoryModel.getWord().getContent());
+            } else {
+                tv_details.setText(categoryModel.getWord().getContent().substring(0, 20) + "...");
+            }
+        }catch (Exception e){
+
         }
+
         Picasso.with(context).load(Tags.IMAGE_URL + categoryModel.getLogo()).fit().into(image);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

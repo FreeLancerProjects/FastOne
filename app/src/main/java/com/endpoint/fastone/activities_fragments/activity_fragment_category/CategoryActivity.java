@@ -431,7 +431,7 @@ public class CategoryActivity extends AppCompatActivity {
         tv_rate.setText(body.getData().get(0).getRate() + "");
         simpleRatingBar.setIndicator(false);
         simpleRatingBar.setRating(body.getData().get(0).getRate());
-        tv_time.setText(body.getData().get(0).getDays().get(0).getFrom_time() + ":" + body.getData().get(0).getDays().get(0).getTo_time());
+         //   tv_time.setText(body.getData().get(0).getDays().get(0).getFrom_time() + ":" + body.getData().get(0).getDays().get(0).getTo_time());
         //    tv_status.setText(body.getData().get(0).getDays().get(0).getStatus());
 
     }
