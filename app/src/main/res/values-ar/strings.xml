@@ -270,6 +270,8 @@
     <string name="remaining_time">الوقت المتبقي</string>
     <string name="min2">دقيقة</string>
     <string name="Admin">إدارة سريع ون</string>
+    <string name="Admins">يسعدنا انضمامك إلى فريق "سريع ون".
+نحيطكم علما بأن عمولة التطبيق (4 ريال) يتم حسابها في رحلة واحدة ، ويتم تحويلها إلى حساباتنا المصرفية المبينة في الطلب.</string>
     <string name="req_acc_as_cour">تم قبول طلبك كمندوب</string>
     <string name="rej_as_cour">عفوا، تم رفض طلبك كمندوب.</string>
     <string name="req_sent">عفوا ، تم إرسال طلبك من قبل نرجو انتظار الرد من قبل الادارة</string>

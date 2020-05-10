@@ -29,6 +29,7 @@ import com.endpoint.fastone.adapters.NotificationsAdapter;
 import com.endpoint.fastone.models.NotificationDataModel;
 import com.endpoint.fastone.models.NotificationModel;
 import com.endpoint.fastone.models.UserModel;
+import com.endpoint.fastone.preferences.Preferences;
 import com.endpoint.fastone.remote.Api;
 import com.endpoint.fastone.singletone.UserSingleTone;
 import com.endpoint.fastone.tags.Tags;
@@ -164,6 +165,8 @@ public class Fragment_Client_Notifications extends Fragment {
 
                     if (response.body() != null && response.body().getData().size() > 0) {
                         ll_not.setVisibility(View.GONE);
+                        if(Preferences.getInstance().getVisitVisitdelegete(activity)==1){
+                        notificationModelList.add(new NotificationModel(activity.getResources().getString(R.string.Admins),"sss"));}
                         notificationModelList.addAll(response.body().getData());
                         adapter.notifyDataSetChanged();
                         isFirstTime = false;

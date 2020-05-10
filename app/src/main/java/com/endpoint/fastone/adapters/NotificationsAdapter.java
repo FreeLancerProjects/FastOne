@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.endpoint.fastone.R;
 import com.endpoint.fastone.activities_fragments.activity_home.client_home.fragments.fragment_home.Fragment_Client_Notifications;
 import com.endpoint.fastone.models.NotificationModel;
+import com.endpoint.fastone.preferences.Preferences;
 import com.endpoint.fastone.share.TimeAgo;
 import com.endpoint.fastone.tags.Tags;
 import com.squareup.picasso.Picasso;
@@ -85,6 +86,14 @@ public class NotificationsAdapter extends RecyclerView.Adapter<RecyclerView.View
                 }
 
             });
+            myHolder.imageDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    notificationModelList.remove(0);
+                    Preferences.getInstance().saveVisitdelegete(context,0);
+                    notifyDataSetChanged();
+                }
+            });
 
         } else {
             LoadMoreHolder loadMoreHolder = (LoadMoreHolder) holder;
@@ -99,8 +108,8 @@ public class NotificationsAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     public class MyHolder extends RecyclerView.ViewHolder {
         private CircleImageView image;
-        private ImageView image_state;
-        private TextView tv_name, tv_order_num, tv_notification_date, tv_order_state,tv_add_rate;
+        private ImageView image_state,imageDelete;
+        private TextView tv_name, tv_order_num, tv_notification_date, tv_order_state,tv_add_rate,order_num,order_state;
 
         public MyHolder(View itemView) {
             super(itemView);
@@ -112,15 +121,17 @@ public class NotificationsAdapter extends RecyclerView.Adapter<RecyclerView.View
             tv_order_state = itemView.findViewById(R.id.tv_order_state);
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_add_rate = itemView.findViewById(R.id.tv_add_rate);
-
-
+            order_num=itemView.findViewById(R.id.order_num);
+            order_state=itemView.findViewById(R.id.order_state);
+            imageDelete=itemView.findViewById(R.id.imageDelete);
         }
 
         public void BindData(NotificationModel notificationModel) {
-            tv_order_num.setText("#" + notificationModel.getOrder_id());
-            tv_notification_date.setText(TimeAgo.getTimeAgo(Long.parseLong(notificationModel.getDate_notification()) * 1000, context));
+            if(!notificationModel.getOrder_status().equals("sss")) {
+                tv_order_num.setText("#" + notificationModel.getOrder_id());
+                tv_notification_date.setText(TimeAgo.getTimeAgo(Long.parseLong(notificationModel.getDate_notification()) * 1000, context));
 
-
+            }
             if (notificationModel.getOrder_status().equals(String.valueOf(Tags.STATE_ORDER_NEW)))
             {
                 if (user_type.equals(Tags.TYPE_CLIENT))
@@ -201,6 +212,17 @@ public class NotificationsAdapter extends RecyclerView.Adapter<RecyclerView.View
                     image_state.setVisibility(View.VISIBLE);
                 }
             }
+            else {
+                tv_name.setText(notificationModel.getTitle_notification());
+order_num.setVisibility(View.GONE);
+order_state.setVisibility(View.GONE);
+tv_notification_date.setVisibility(View.GONE);
+tv_add_rate.setVisibility(View.GONE);
+tv_order_num.setVisibility(View.GONE);
+tv_order_state.setVisibility(View.GONE);
+imageDelete.setVisibility(View.VISIBLE);
+tv_name.setLineSpacing(1.5f,1.5f);
+           }
 
         }
     }
