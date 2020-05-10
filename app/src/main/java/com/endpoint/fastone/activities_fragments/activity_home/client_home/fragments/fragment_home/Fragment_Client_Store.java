@@ -109,7 +109,6 @@ public class Fragment_Client_Store extends Fragment {
         mainNearbyModelList = new ArrayList<>();
         categoryModels = new ArrayList<>();
         queriesList = new ArrayList<>();
-        queriesList.add("all");
 
         queriesList.add("restaurant");
         queriesList.add("bakery");
@@ -120,7 +119,6 @@ public class Fragment_Client_Store extends Fragment {
         queriesList.add("pharmacy");
 
         en_ar_queriesList = new ArrayList<>();
-        en_ar_queriesList.add(new QuerySearchModel(getString(R.string.all),R.drawable.map));
         en_ar_queriesList.add(new QuerySearchModel(getString(R.string.restaurant),R.drawable.ic_restaurant));
         en_ar_queriesList.add(new QuerySearchModel(getString(R.string.bakery),R.drawable.ic_sweet));
         en_ar_queriesList.add(new QuerySearchModel(getString(R.string.supermarket),R.drawable.ic_nav_store));
@@ -357,7 +355,7 @@ public class Fragment_Client_Store extends Fragment {
             String loc = location.getLatitude()+","+location.getLongitude();
 
             Api.getService("https://maps.googleapis.com/maps/api/")
-                    .getNearbyStores(loc,15000,query,current_language,getString(R.string.map_api_key))
+                    .getNearbyStores(loc,5000,query,current_language,getString(R.string.map_api_key))
                     .enqueue(new Callback<NearbyStoreDataModel>() {
                         @Override
                         public void onResponse(Call<NearbyStoreDataModel> call, Response<NearbyStoreDataModel> response) {

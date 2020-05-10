@@ -2356,7 +2356,7 @@ public class ClientHomeActivity extends AppCompatActivity implements GoogleApiCl
                         public void run() {
                             if (canUpdateLocation) {
                                 canUpdateLocation = false;
-                                fragment_client_store.getNearbyPlaces(location, "all");
+                                fragment_client_store.getNearbyPlaces(location, "restaurant");
 
                             }
                             /*if (intentService!=null)
