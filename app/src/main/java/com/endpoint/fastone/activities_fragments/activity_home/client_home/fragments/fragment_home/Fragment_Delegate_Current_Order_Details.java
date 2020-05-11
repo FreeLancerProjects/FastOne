@@ -222,9 +222,9 @@ public class Fragment_Delegate_Current_Order_Details extends Fragment {
             isBillUploaded = false;
 
         }*/
-        Log.e("hhhh",order.getOrder_image());
+      //  Log.e("ldldldll",order.getOrder_image());
         order_image.setVisibility(View.GONE);
-        if (order.getOrder_image()==null||order.getOrder_image().isEmpty())
+        if (order.getOrder_image()==null||order.getOrder_image().isEmpty()||order.getOrder_image().equals("0"))
         {
             order_image.setVisibility(View.GONE);
         }else
