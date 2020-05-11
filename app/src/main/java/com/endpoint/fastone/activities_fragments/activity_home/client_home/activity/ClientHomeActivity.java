@@ -1095,7 +1095,7 @@ public class ClientHomeActivity extends AppCompatActivity implements GoogleApiCl
                         .postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                fragment_shipment.setLocationData(favourite_location.getPlace_id(), favourite_location.getStreet() + " " + favourite_location.getAddress(), favourite_location.getLat(), favourite_location.getLng(), "pickup_location");
+                                fragment_shipment.setLocationData(favourite_location.getPlace_id(),favourite_location.getName(), favourite_location.getStreet() + " " + favourite_location.getAddress(), favourite_location.getLat(), favourite_location.getLng(), "pickup_location");
                                 fragmentManager.popBackStack("fragment_map", FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                 fragment_count -= 1;
                             }
@@ -1107,7 +1107,7 @@ public class ClientHomeActivity extends AppCompatActivity implements GoogleApiCl
                         .postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                fragment_shipment.setLocationData(favourite_location.getPlace_id(), favourite_location.getStreet() + " " + favourite_location.getAddress(), favourite_location.getLat(), favourite_location.getLng(), "dropoff_location");
+                                fragment_shipment.setLocationData(favourite_location.getPlace_id(),favourite_location.getName(), favourite_location.getStreet() + " " + favourite_location.getAddress(), favourite_location.getLat(), favourite_location.getLng(), "dropoff_location");
                                 fragmentManager.popBackStack("fragment_map", FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                 fragment_count -= 1;
                             }
@@ -1246,16 +1246,16 @@ public class ClientHomeActivity extends AppCompatActivity implements GoogleApiCl
 
     }
 
-    public void DisplayFragmentMapLocationDetails(double lat, double lng, String address) {
+    public void DisplayFragmentMapLocationDetails(double place_lat, double place_lng, double client_lat, double client_lng, String address) {
 
         fragment_count += 1;
-        fragment_map_location_details = Fragment_Map_Location_Details.newInstance(lat, lng, address);
+        fragment_map_location_details = Fragment_Map_Location_Details.newInstance(place_lat, place_lng, client_lat, client_lng, address);
 
         if (fragment_map_location_details.isAdded()) {
             fragmentManager.beginTransaction().show(fragment_map_location_details).commit();
 
         } else {
-            fragmentManager.beginTransaction().setCustomAnimations(R.anim.dialog_enter, R.anim.dialog_exit).add(R.id.fragment_app_container, fragment_map_location_details, "fragment_map_location_details").addToBackStack("fragment_map_location_details").commit();
+            fragmentManager.beginTransaction().add(R.id.fragment_app_container, fragment_map_location_details, "fragment_map_location_details").addToBackStack("fragment_map_location_details").commit();
         }
 
 
@@ -1845,6 +1845,7 @@ public class ClientHomeActivity extends AppCompatActivity implements GoogleApiCl
                     }
                 }
             });
+            Log.e("ffffffff", order_movement + "");
 
         } else if (order_movement == Tags.STATE_DELEGATE_COLLECTING_ORDER) {
             final ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
@@ -2487,4 +2488,7 @@ public class ClientHomeActivity extends AppCompatActivity implements GoogleApiCl
     }
 
 
+    public void refresh() {
+        getUserDataById(userModel.getData().getUser_id());
+    }
 }

@@ -47,7 +47,14 @@ public class OrderDataModel implements Serializable {
         private String order_image;
         private String driver_lat;
         private String driver_long;
+        private String bill_image;
+        private String bill_cost;
+        private String order_time;
+        private String place_name;
 
+        public String getPlace_name() {
+            return place_name;
+        }
 
         public String getOrder_id() {
             return order_id;
@@ -163,6 +170,18 @@ public class OrderDataModel implements Serializable {
 
         public String getDriver_long() {
             return driver_long;
+        }
+
+        public String getBill_image() {
+            return bill_image;
+        }
+
+        public String getBill_cost() {
+            return bill_cost;
+        }
+
+        public String getOrder_time() {
+            return order_time;
         }
     }
 

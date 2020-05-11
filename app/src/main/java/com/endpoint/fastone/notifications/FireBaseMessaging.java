@@ -7,6 +7,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
@@ -293,55 +294,13 @@ public class FireBaseMessaging extends FirebaseMessagingService {
 
 
 
+            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.logo_only);
+            builder.setLargeIcon(bitmap);
+            manager.createNotificationChannel(channel);
+            manager.notify(new Random().nextInt(200), builder.build());
 
-
-                final Target target = new Target() {
-                    @Override
-                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                        if (manager != null) {
-                            builder.setLargeIcon(bitmap);
-                            manager.createNotificationChannel(channel);
-                            manager.notify(new Random().nextInt(200), builder.build());
-                        }
-
-                    }
-
-                    @Override
-                    public void onBitmapFailed(Drawable errorDrawable) {
-
-                    }
-
-                    @Override
-                    public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-                    }
-                };
-
-
-                new Handler(Looper.getMainLooper())
-                        .postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-
-                                String from_image = null;
-                                if (from_image!=null&&from_image.equals("0"))
-                                {
-
-                                    Picasso.with(FireBaseMessaging.this).load(R.drawable.logo).into(target);
-
-                                }else
-                                {
-                                    Picasso.with(FireBaseMessaging.this).load(Uri.parse(Tags.IMAGE_URL + from_image)).resize(250,250).into(target);
-
-                                }
-
-
-
-
-                            }
-                        }, 1);
 
 
 
@@ -789,51 +748,12 @@ public class FireBaseMessaging extends FirebaseMessagingService {
 
 
 
-                final Target target = new Target() {
-                    @Override
-                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                        if (manager != null) {
-                            builder.setLargeIcon(bitmap);
-                            manager.notify(new Random().nextInt(200), builder.build());
-                        }
+            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-                    }
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.logo_only);
+            builder.setLargeIcon(bitmap);
+            manager.notify(new Random().nextInt(200), builder.build());
 
-                    @Override
-                    public void onBitmapFailed(Drawable errorDrawable) {
-
-                    }
-
-                    @Override
-                    public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-                    }
-                };
-
-
-                new Handler(Looper.getMainLooper())
-                        .postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-
-                                String from_image = null;
-                                if (from_image!=null&&from_image.equals("0"))
-                                {
-
-                                    Picasso.with(FireBaseMessaging.this).load(R.drawable.logo).into(target);
-
-                                }else
-                                {
-                                    Picasso.with(FireBaseMessaging.this).load(Uri.parse(Tags.IMAGE_URL + from_image)).resize(250,250).into(target);
-
-                                }
-
-
-
-
-                            }
-                        }, 1);
 
 
 

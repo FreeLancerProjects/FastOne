@@ -468,7 +468,7 @@ public class CategoryActivity extends AppCompatActivity {
         final ProgressDialog dialog = Common.createProgressDialog(this,getString(R.string.wait));
         dialog.show();
         Api.getService(Tags.base_url)
-                .sendOrder(userModel.getData().getUser_id(),selectedLocation.getAddress()+" "+selectedLocation.getAddress(),selectedLocation.getLat(),selectedLocation.getLng(),order_details,singlecategory.getData().get(0).getPlace_id()+"",singlecategory.getData().get(0).getAddress(),"1",singlecategory.getData().get(0).getGoogle_lat(),singlecategory.getData().get(0).getGoogle_long(),selected_time,coupon_id+"")
+                .sendOrder(userModel.getData().getUser_id(),selectedLocation.getAddress()+" "+selectedLocation.getAddress(),selectedLocation.getLat(),selectedLocation.getLng(),order_details,singlecategory.getData().get(0).getPlace_id()+"",singlecategory.getData().get(0).getAddress(),"1",singlecategory.getData().get(0).getGoogle_lat(),singlecategory.getData().get(0).getGoogle_long(),selected_time,coupon_id+"",singlecategory.getData().get(0).getCategory_id())
                 .enqueue(new Callback<OrderIdDataModel>() {
                     @Override
                     public void onResponse(Call<OrderIdDataModel> call, Response<OrderIdDataModel> response) {
@@ -766,6 +766,8 @@ public class CategoryActivity extends AppCompatActivity {
         RequestBody client_lng_part = Common.getRequestBodyText(String.valueOf(selectedLocation.getLng()));
         RequestBody order_details_part = Common.getRequestBodyText(order_details);
         RequestBody place_id_part = Common.getRequestBodyText(singlecategory.getData().get(0).getPlace_id()+"");
+        RequestBody place_name_part = Common.getRequestBodyText(singlecategory.getData().get(0).getCategory_id()+"");
+
         RequestBody place_address_part = Common.getRequestBodyText(selectedLocation.getAddress());
         RequestBody order_type_part = Common.getRequestBodyText("1");
         RequestBody place_lat_part = Common.getRequestBodyText(String.valueOf(selectedLocation.getLat()));
@@ -777,7 +779,7 @@ public class CategoryActivity extends AppCompatActivity {
         final ProgressDialog dialog = Common.createProgressDialog(this,getString(R.string.wait));
         dialog.show();
         Api.getService(Tags.base_url)
-                .sendOrderWithImage(user_id_part,client_address_part,client_lat_part,client_lng_part,order_details_part,place_id_part,place_address_part,order_type_part,place_lat_part,place_lng_part,selected_time_part,copun_part,image_part)
+                .sendOrderWithImage(user_id_part,client_address_part,client_lat_part,client_lng_part,order_details_part,place_id_part,place_name_part,place_address_part,order_type_part,place_lat_part,place_lng_part,selected_time_part,copun_part,image_part)
                 .enqueue(new Callback<OrderIdDataModel>() {
                     @Override
                     public void onResponse(Call<OrderIdDataModel> call, Response<OrderIdDataModel> response) {

@@ -45,7 +45,7 @@ public class Fragment_Client_Profile extends Fragment {
     private ImageView image_logout, image, arrow, arrow2,arrow3, image_instagram, image_facebook, image_twitter, img_certified;
     private TextView tv_name, tv_balance, tv_order_count, tv_feedback, tv_certified, tv_coupons;
     private SimpleRatingBar rateBar;
-    private ConstraintLayout cons_setting, cons_register_delegate, cons_comment, cons_add_coupon,cons_banks;
+    private ConstraintLayout cons_setting,cons_balance, cons_register_delegate, cons_comment, cons_add_coupon,cons_banks;
     private LinearLayout ll_telegram, ll_certification;
     private String current_language;
     private ClientHomeActivity activity;
@@ -101,6 +101,8 @@ public class Fragment_Client_Profile extends Fragment {
         image = view.findViewById(R.id.image);
         tv_name = view.findViewById(R.id.tv_name);
         tv_balance = view.findViewById(R.id.tv_balance);
+        cons_balance = view.findViewById(R.id.cons_balance);
+
         tv_order_count = view.findViewById(R.id.tv_order_count);
         tv_feedback = view.findViewById(R.id.tv_feedback);
         tv_coupons = view.findViewById(R.id.tv_coupons);
@@ -136,6 +138,8 @@ public class Fragment_Client_Profile extends Fragment {
         cons_register_delegate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 activity.DisplayFragmentDocumentation();
             }
         });
@@ -286,8 +290,10 @@ public class Fragment_Client_Profile extends Fragment {
             this.userModel = userModel;
 
             if (userModel.getData().getUser_type().equals(Tags.TYPE_CLIENT)) {
+                cons_balance.setVisibility(View.GONE);
 //                ll_certification.setVisibility(View.GONE);
             } else {
+                cons_register_delegate.setVisibility(View.GONE);
 //                if (userModel.getData().getNum_orders() > 0) {
 //                    tv_certified.setText(getString(R.string.certified_account));
 //                    img_certified.setImageResource(R.drawable.checked_certified);

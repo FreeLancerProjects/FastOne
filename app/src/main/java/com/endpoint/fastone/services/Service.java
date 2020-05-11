@@ -162,7 +162,8 @@ public interface Service {
                                      @Field("place_lat") double place_lat,
                                      @Field("place_long") double place_long,
                                      @Field("order_time_arrival") long order_time_arrival,
-                                     @Field("coupon_id") String coupon_id
+                                     @Field("coupon_id") String coupon_id,
+                                     @Field("place_name") String place_name
 
     );
 
@@ -174,6 +175,7 @@ public interface Service {
                                               @Part("client_long") RequestBody client_long,
                                               @Part("order_details") RequestBody order_details,
                                               @Part("place_google_id") RequestBody place_google_id,
+                                              @Part("place_name") RequestBody place_google_name,
                                               @Part("place_address") RequestBody place_address,
                                               @Part("order_type") RequestBody order_type,
                                               @Part("place_lat") RequestBody place_lat,
