@@ -222,8 +222,9 @@ public class Fragment_Delegate_Current_Order_Details extends Fragment {
             isBillUploaded = false;
 
         }*/
+        Log.e("hhhh",order.getOrder_image());
         order_image.setVisibility(View.GONE);
-        if (order.getOrder_image()==null)
+        if (order.getOrder_image()==null||order.getOrder_image().isEmpty())
         {
             order_image.setVisibility(View.GONE);
         }else
@@ -238,13 +239,13 @@ public class Fragment_Delegate_Current_Order_Details extends Fragment {
         {
             tv_address.setText(order.getClient_address());
             ll_address.setVisibility(View.VISIBLE);
-            ll_shipment.setVisibility(View.GONE);
+          //  ll_shipment.setVisibility(View.GONE);
         }else if (order.getOrder_type().equals("2"))
         {
             tv_location_pickup.setText(order.getPlace_address());
             tv_location_dropoff.setText(order.getClient_address());
             ll_address.setVisibility(View.GONE);
-            ll_shipment.setVisibility(View.VISIBLE);
+         //   ll_shipment.setVisibility(View.VISIBLE);
         }
 
 
