@@ -165,7 +165,7 @@ public class Fragment_Client_Notifications extends Fragment {
 
                     if (response.body() != null && response.body().getData().size() > 0) {
                         ll_not.setVisibility(View.GONE);
-                        if(Preferences.getInstance().getVisitVisitdelegete(activity)==1&&userModel.getData().getUser_type().equals(Tags.TYPE_DELEGATE){
+                        if(Preferences.getInstance().getVisitVisitdelegete(activity)==1&&userModel.getData().getUser_type().equals(Tags.TYPE_DELEGATE)){
                         notificationModelList.add(new NotificationModel(activity.getResources().getString(R.string.Admins),"sss"));}
                         notificationModelList.addAll(response.body().getData());
                         adapter.notifyDataSetChanged();
