@@ -119,7 +119,8 @@ public class FireBaseMessaging extends FirebaseMessagingService {
 
                     MessageModel messageModel = new MessageModel(message_id,room_id_fk,date,message,message_type,msg_image,from_user_id,from_name,from_user_image,from_user_phone_code,from_user_phone,to_user_id,to_user_full_name,to_user_image,to_user_phone_code,to_user_phone);
                     EventBus.getDefault().post(messageModel);
-                } else {
+                }
+                else {
                     String CHANNEL_ID = "my_channel_02";
                     CharSequence CHANNEL_NAME = "my_channel_name";
                     int IMPORTANCE = NotificationManager.IMPORTANCE_HIGH;
@@ -305,6 +306,10 @@ public class FireBaseMessaging extends FirebaseMessagingService {
 
 
              }
+        else if(notification_type.equals("s")){
+UserModel userModel=new UserModel();
+        EventBus.getDefault().post(userModel);
+        }
         else {
 
             String CHANNEL_ID = "my_channel_02";
@@ -760,6 +765,10 @@ public class FireBaseMessaging extends FirebaseMessagingService {
 
 
 
+        }
+        else if(notification_type.equals("s")){
+            UserModel userModel=new UserModel();
+            EventBus.getDefault().post(userModel);
         }
         else {
 

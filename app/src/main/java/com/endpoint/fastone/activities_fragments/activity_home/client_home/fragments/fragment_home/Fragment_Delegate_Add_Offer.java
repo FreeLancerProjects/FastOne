@@ -181,7 +181,7 @@ public class Fragment_Delegate_Add_Offer extends Fragment {
             tv_order_details.setText(orderModel.getOrder_details());
             rest_name.setText(orderModel.getPlace_name());
 
-            if (orderModel.getOrder_image()==null)
+            if (orderModel.getOrder_image()==null||orderModel.getOrder_image().equals("0"))
             {
                 order_image.setVisibility(View.GONE);
             }else

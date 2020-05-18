@@ -509,6 +509,17 @@ public class ClientHomeActivity extends AppCompatActivity implements GoogleApiCl
 
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void ListenNotificationOFFer(UserModel userModel) {
+
+     if(fragment_client_orders!=null){
+         fragment_client_orders.getOrders();
+     }
+
+
+    }
+
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void ListenNotificationDriverUpdate(final FollowModel followModel) {
