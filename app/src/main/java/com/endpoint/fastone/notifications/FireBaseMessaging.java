@@ -306,7 +306,7 @@ public class FireBaseMessaging extends FirebaseMessagingService {
 
 
              }
-        else if(notification_type.equals("s")){
+        else if(notification_type.equals("order_other_accept")){
 UserModel userModel=new UserModel();
         EventBus.getDefault().post(userModel);
         }
@@ -766,7 +766,7 @@ UserModel userModel=new UserModel();
 
 
         }
-        else if(notification_type.equals("s")){
+        else if(notification_type.equals("order_other_accept")){
             UserModel userModel=new UserModel();
             EventBus.getDefault().post(userModel);
         }
