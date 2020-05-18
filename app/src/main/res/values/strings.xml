@@ -42,7 +42,7 @@
     <string name="new_password">New password</string>
     <string name="update_phone">Update phone</string>
     <string name="succ">Success</string>
-    <string name="failed">Failed try again later</string>
+    <string name="failed">data not completed try again later</string>
     <string name="phone_number_not_exists">Phone number not exists</string>
     <string name="sgin_out">Signing out...</string>
     <string name="sign_out">Sign Out</string>

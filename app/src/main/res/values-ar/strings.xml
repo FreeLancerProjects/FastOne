@@ -42,7 +42,7 @@
     <string name="new_password">كلمة المرور الجديدة</string>
     <string name="update_phone">تعديل رقم الهاتف</string>
     <string name="succ">تم بنجاح</string>
-    <string name="failed">فشل حاول مرة اخرى لاحقا</string>
+    <string name="failed">البيانات غير مكتمله حاول مره اخري</string>
 
     <string name="phone_number_not_exists">لم يتم التسجيل برقم الجوال من قبل</string>
     <string name="sgin_out">جار تسجيل الخروج...</string>
@@ -310,8 +310,8 @@
     <string name="no_rev">لا توجد تعليقات</string>
     <string name="map_style">نوع الخريطة</string>
     <string name="cust_rate">تقييم العملاء</string>
-    <string name="write_order_here">Write order Here</string>
-    <string name="more_detials">More Detials</string>
+    <string name="write_order_here">اكتب طلبك هنا</string>
+    <string name="more_detials">تفاصيل اكثر</string>
     <string name="client_rate_order">العميل قيم الطلب</string>
     <string name="stcPay">Stc Pay</string>
     <string name="rate_of_category">تقييم القسم</string>
