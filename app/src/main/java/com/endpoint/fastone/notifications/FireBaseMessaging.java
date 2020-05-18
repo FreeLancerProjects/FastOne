@@ -143,7 +143,8 @@ public class FireBaseMessaging extends FirebaseMessagingService {
                     ChatUserModel chatUserModel = new ChatUserModel(from_name, from_user_image, from_user_id, room_id_fk, from_user_phone_code, from_user_phone_code,order_id,driver_offer);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     intent.putExtra("data", chatUserModel);
-
+                    PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    builder.setContentIntent(pendingIntent);
                     builder.setContentText(message);
 
                     final Target target = new Target() {
@@ -216,7 +217,8 @@ public class FireBaseMessaging extends FirebaseMessagingService {
                 ChatUserModel chatUserModel = new ChatUserModel(from_name, from_user_image, from_user_id, room_id_fk, from_user_phone_code, from_user_phone_code,order_id,driver_offer);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.putExtra("data", chatUserModel);
-
+                PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                builder.setContentIntent(pendingIntent);
                 builder.setContentText(message);
 
                 final Target target = new Target() {
@@ -624,7 +626,8 @@ UserModel userModel=new UserModel();
                     ChatUserModel chatUserModel = new ChatUserModel(from_name, from_user_image, from_user_id, room_id_fk, from_user_phone_code, from_user_phone_code,order_id,driver_offer);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     intent.putExtra("data", chatUserModel);
-
+                    PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    builder.setContentIntent(pendingIntent);
                     builder.setContentText(message);
 
                     final Target target = new Target() {
@@ -685,7 +688,8 @@ UserModel userModel=new UserModel();
                 ChatUserModel chatUserModel = new ChatUserModel(from_name, from_user_image, from_user_id, room_id_fk, from_user_phone_code, from_user_phone_code,order_id,driver_offer);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.putExtra("data", chatUserModel);
-
+                PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                builder.setContentIntent(pendingIntent);
                 builder.setContentText(message);
 
                 final Target target = new Target() {
