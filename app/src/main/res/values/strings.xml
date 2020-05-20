@@ -330,5 +330,6 @@ We inform you that the application commission (20%) is calculated on a single tr
     <string name="contact_snap">Connect with us on Snap chat</string>
     <string name="place_name">place name</string>
     <string name="pls_upload_img_bill">Please Upload Bill Image.</string>
+    <string name="bank_account_number">Bank Account Number</string>
 
 </resources>
