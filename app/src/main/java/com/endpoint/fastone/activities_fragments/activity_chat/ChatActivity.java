@@ -1184,7 +1184,7 @@ tv_title=findViewById(R.id.tvTitle);
 
                     double total = Double.parseDouble(cost) + Double.parseDouble(chatUserModel.getOffer_cost());
                     String msg = "تكلفة المشتريات: " + cost + " " + currency.getSymbol() + "\n" + "تكلفة التوصيل: " + chatUserModel.getOffer_cost() + " " + currency.getSymbol() + "\n" + "المجموع الكلي: " + total + " " + currency.getSymbol();
-                    bill_amount=cost;
+                    bill_amount=total+"";
                     sendلاbillMessageWithImage(msg);
 
                 }
