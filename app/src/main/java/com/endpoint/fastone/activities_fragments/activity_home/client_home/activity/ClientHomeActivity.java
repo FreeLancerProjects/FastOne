@@ -538,7 +538,7 @@ public class ClientHomeActivity extends AppCompatActivity implements GoogleApiCl
 
     }
 
-    private void getUserDataById(String user_id) {
+    public void getUserDataById(String user_id) {
         Api.getService(Tags.base_url)
                 .getUserDataById(user_id)
                 .enqueue(new Callback<UserModel>() {
@@ -1345,13 +1345,16 @@ public class ClientHomeActivity extends AppCompatActivity implements GoogleApiCl
         if (fragment_client_profile != null && fragment_client_profile.isAdded()) {
             fragment_client_profile.updateUserData(userModel);
         }
+        if(fragment_reserve_order!=null){
+            fragment_reserve_order.updateUserData(userModel);
+        }
     }
 
     public void NavigateToChatActivity(ChatUserModel chatUserModel, String from) {
         Intent intent = new Intent(this, ChatActivity.class);
         intent.putExtra("data", chatUserModel);
         intent.putExtra("from", from);
-        startActivity(intent);
+        startActivityForResult(intent,200);
     }
 
     public void delegateAcceptOrder(String driver_id, String client_id, String order_id, String driver_offer) {
@@ -2187,7 +2190,9 @@ public class ClientHomeActivity extends AppCompatActivity implements GoogleApiCl
                 //create dialog to open_gps
             }
         }
-
+if(fragment_client_orders!=null&&fragment_client_orders.isAdded()){
+    fragment_client_orders.getOrders();
+}
         /*if (requestCode == 33) {
             if (isGpsOpen()) {
                 StartService(LocationRequest.PRIORITY_LOW_POWER);
@@ -2503,5 +2508,11 @@ public class ClientHomeActivity extends AppCompatActivity implements GoogleApiCl
 
     public void refresh() {
         getUserDataById(userModel.getData().getUser_id());
+    }
+
+    public void apply() {
+        if(fragment_client_profile!=null&&fragment_client_profile.isAdded()){
+fragment_client_profile.pay();
+        }
     }
 }

@@ -110,7 +110,7 @@ public class ChatActivity extends AppCompatActivity {
     private MediaPlayer mp;
     private final String audio_perm = Manifest.permission.RECORD_AUDIO;
     private final int write_req = 100;
-
+private TextView tv_title;
     private boolean isPermissionGranted = false;
     private MediaPlayer mediaPlayer;
     private final String read_permission = Manifest.permission.READ_EXTERNAL_STORAGE;
@@ -123,7 +123,7 @@ public class ChatActivity extends AppCompatActivity {
     private String path;
     private SeekBar seekBar;
     private CardView cardView;
-
+private String bill_amount;
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -165,7 +165,7 @@ public class ChatActivity extends AppCompatActivity {
 
         userSingleTone = UserSingleTone.getInstance();
         userModel = userSingleTone.getUserModel();
-
+tv_title=findViewById(R.id.tvTitle);
         image_back = findViewById(R.id.image_back);
         imageMic = findViewById(R.id.imageMic);
         imagePlay = findViewById(R.id.imagePlay);
@@ -702,8 +702,24 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void UpdateUI(ChatUserModel chatUserModel) {
-        if (userModel.getData().getUser_type().equals(Tags.TYPE_CLIENT)) {
+        if (userModel.getData().getUser_type().equals(Tags.TYPE_CLIENT)&&chatUserModel.getBill_step().equals("not_attach")) {
             ll_bill.setVisibility(View.GONE);
+        }
+        else if(userModel.getData().getUser_type().equals(Tags.TYPE_DELEGATE)&&chatUserModel.getBill_step().equals("not_attach"))
+        {
+            ll_bill.setVisibility(View.VISIBLE);
+
+        }
+        else if(userModel.getData().getUser_type().equals(Tags.TYPE_DELEGATE)&&!chatUserModel.getBill_step().equals("not_attach"))
+        {
+            ll_bill.setVisibility(View.GONE);
+
+        }
+        else if(userModel.getData().getUser_type().equals(Tags.TYPE_CLIENT)&&!chatUserModel.getBill_step().equals("not_attach"))
+        {
+            ll_bill.setVisibility(View.VISIBLE);
+            tv_title.setText(getResources().getString(R.string.pay));
+
         }
         preferences.saveChatUserData(this, chatUserModel);
         tv_name.setText(chatUserModel.getName());
@@ -756,6 +772,73 @@ public class ChatActivity extends AppCompatActivity {
                             } else {
                                 messageModelList.add(response.body());
                                 adapter.notifyItemInserted(messageModelList.size() - 1);
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        recView.scrollToPosition(messageModelList.size() - 1);
+
+                                    }
+                                }, 100);
+                            }
+
+                        } else {
+
+                            try {
+                                Log.e("Error_code", response.code() + "_" + response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<MessageModel> call, Throwable t) {
+                        try {
+                            Log.e("Error", t.getMessage());
+                        } catch (Exception e) {
+                        }
+                    }
+                });
+
+    }
+    private void sendلاbillMessageWithImage(String msg) {
+        RequestBody room_part = Common.getRequestBodyText(chatUserModel.getRoom_id());
+        RequestBody from_user_id_part = Common.getRequestBodyText(userModel.getData().getUser_id());
+        RequestBody to_user_id_part = Common.getRequestBodyText(chatUserModel.getId());
+
+        RequestBody user_msg_part = Common.getRequestBodyText(msg);
+        RequestBody user_msg_type_part = Common.getRequestBodyText(Tags.MESSAGE_IMAGE_TEXT);
+        RequestBody bill_type_part = Common.getRequestBodyText(bill_amount);
+        RequestBody order_type_part = Common.getRequestBodyText(chatUserModel.getOrder_id());
+
+        MultipartBody.Part image_part = Common.getMultiPart(this, imgUri, "file");
+
+        Api.getService(Tags.base_url)
+                .sendbillWithImage(room_part, from_user_id_part, to_user_id_part, user_msg_part, user_msg_type_part,bill_type_part,order_type_part,image_part)
+                .enqueue(new Callback<MessageModel>() {
+                    @Override
+                    public void onResponse(Call<MessageModel> call, Response<MessageModel> response) {
+
+                        Log.e("datttaa", response.body() + "_");
+                        progBar.setVisibility(View.GONE);
+                        if (response.isSuccessful()) {
+                            if (adapter == null) {
+                                ll_bill.setVisibility(View.GONE);
+                                messageModelList.add(response.body());
+                                adapter = new ChatAdapter(messageModelList, userModel.getData().getUser_id(), chatUserModel.getImage(), ChatActivity.this);
+                                recView.setAdapter(adapter);
+                                adapter.notifyDataSetChanged();
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        recView.scrollToPosition(messageModelList.size() - 1);
+
+                                    }
+                                }, 100);
+                            } else {
+                                messageModelList.add(response.body());
+                                adapter.notifyItemInserted(messageModelList.size() - 1);
+
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
@@ -1101,8 +1184,8 @@ public class ChatActivity extends AppCompatActivity {
 
                     double total = Double.parseDouble(cost) + Double.parseDouble(chatUserModel.getOffer_cost());
                     String msg = "تكلفة المشتريات: " + cost + " " + currency.getSymbol() + "\n" + "تكلفة التوصيل: " + chatUserModel.getOffer_cost() + " " + currency.getSymbol() + "\n" + "المجموع الكلي: " + total + " " + currency.getSymbol();
-                    SendMessage(msg, Tags.MESSAGE_IMAGE_TEXT);
-
+                    bill_amount=cost;
+                    sendلاbillMessageWithImage(msg);
 
                 }
             }

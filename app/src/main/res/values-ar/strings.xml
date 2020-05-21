@@ -328,5 +328,8 @@
     <string name="place_name">اسم المكان</string>
     <string name="pls_upload_img_bill">قم برفع صورة الفاتورة</string>
     <string name="bank_account_number">ررقم الحساب البنكى</string>
+    <string name="rechager">شحن الرصيد</string>
+    <string name="you_pay">سوف تدفع</string>
+    <string name="pay">دفع</string>
 
 </resources>

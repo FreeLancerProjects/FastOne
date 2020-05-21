@@ -12,8 +12,14 @@ public class ChatUserModel implements Serializable {
     private String phone;
     private String order_id;
     private String offer_cost;
+private String bill_step;
 
-    public ChatUserModel(String name, String image, String id, String room_id, String phone_code, String phone, String order_id, String offer_cost) {
+
+    public String getBill_step() {
+        return bill_step;
+    }
+
+    public ChatUserModel(String name, String image, String id, String room_id, String phone_code, String phone, String order_id, String offer_cost,String bill_step) {
         this.name = name;
         this.image = image;
         this.id = id;
@@ -22,6 +28,7 @@ public class ChatUserModel implements Serializable {
         this.phone = phone;
         this.order_id = order_id;
         this.offer_cost = offer_cost;
+        this.bill_step=bill_step;
     }
 
     public String getName() {

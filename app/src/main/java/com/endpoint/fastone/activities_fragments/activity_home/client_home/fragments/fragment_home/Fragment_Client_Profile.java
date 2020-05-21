@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +23,8 @@ import androidx.fragment.app.Fragment;
 
 import com.endpoint.fastone.R;
 import com.endpoint.fastone.activities_fragments.activity_home.client_home.activity.ClientHomeActivity;
+import com.endpoint.fastone.activities_fragments.telr_activity.TelrActivity;
+import com.endpoint.fastone.models.PayPalLinkModel;
 import com.endpoint.fastone.models.SocialMediaModel;
 import com.endpoint.fastone.models.UserModel;
 import com.endpoint.fastone.remote.Api;
@@ -42,10 +45,10 @@ import retrofit2.Response;
 
 public class Fragment_Client_Profile extends Fragment {
 
-    private ImageView image_logout, image, arrow, arrow2,arrow3, image_instagram, image_facebook, image_twitter, img_certified;
+    private ImageView image_logout, image, arrow, arrow2,arrow3,arrow13, image_instagram, image_facebook, image_twitter, img_certified;
     private TextView tv_name, tv_balance, tv_order_count, tv_feedback, tv_certified, tv_coupons;
     private SimpleRatingBar rateBar;
-    private ConstraintLayout cons_setting,cons_balance, cons_register_delegate, cons_comment, cons_add_coupon,cons_banks;
+    private ConstraintLayout cons_setting,cons_balance, cons_register_delegate, cons_comment, cons_add_coupon,cons_banks,cons_pay;
     private LinearLayout ll_telegram, ll_certification;
     private String current_language;
     private ClientHomeActivity activity;
@@ -76,16 +79,19 @@ public class Fragment_Client_Profile extends Fragment {
         arrow = view.findViewById(R.id.arrow);
         arrow2 = view.findViewById(R.id.arrow2);
         arrow3 = view.findViewById(R.id.arrow3);
+        arrow13 = view.findViewById(R.id.arrow13);
 
         if (current_language.equals("ar")) {
             arrow.setImageResource(R.drawable.ic_left_arrow);
             arrow2.setImageResource(R.drawable.ic_left_arrow);
             arrow3.setImageResource(R.drawable.ic_left_arrow);
+            arrow13.setImageResource(R.drawable.ic_left_arrow);
 
         } else {
             arrow.setImageResource(R.drawable.ic_right_arrow);
             arrow2.setImageResource(R.drawable.ic_right_arrow);
             arrow3.setImageResource(R.drawable.ic_right_arrow);
+            arrow13.setImageResource(R.drawable.ic_left_arrow);
 
 
         }
@@ -109,6 +115,7 @@ public class Fragment_Client_Profile extends Fragment {
         rateBar = view.findViewById(R.id.rateBar);
         cons_add_coupon = view.findViewById(R.id.cons_add_coupon);
         cons_banks = view.findViewById(R.id.cons_banks);
+        cons_pay = view.findViewById(R.id.cons_pay);
 
         cons_register_delegate = view.findViewById(R.id.cons_register_delegate);
         cons_comment = view.findViewById(R.id.cons_comment);
@@ -134,7 +141,12 @@ public class Fragment_Client_Profile extends Fragment {
                 activity.DisplayFragmentSettings();
             }
         });
-
+cons_pay.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Common.CreatePAyDialog(activity,activity.getResources().getString(R.string.you_pay)+Math.abs(userModel.getData().getAccount_balance()));
+    }
+});
         cons_register_delegate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -292,8 +304,10 @@ public class Fragment_Client_Profile extends Fragment {
             if (userModel.getData().getUser_type().equals(Tags.TYPE_CLIENT)) {
                 cons_balance.setVisibility(View.GONE);
 //                ll_certification.setVisibility(View.GONE);
+                cons_pay.setVisibility(View.GONE);
             } else {
                 cons_register_delegate.setVisibility(View.GONE);
+
 //                if (userModel.getData().getNum_orders() > 0) {
 //                    tv_certified.setText(getString(R.string.certified_account));
 //                    img_certified.setImageResource(R.drawable.checked_certified);
@@ -363,6 +377,115 @@ public class Fragment_Client_Profile extends Fragment {
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_window_bg);
         dialog.setView(view);
         dialog.show();
+    }
+    public void pay() {
+
+        ProgressDialog dialog = Common.createProgressDialog(activity,getString(R.string.wait));
+        dialog.setCancelable(false);
+        dialog.show();
+        try {
+
+            Api.getService(Tags.base_url)
+                    .getPayPalLink(userModel.getData().getUser_id(),userModel.getData().getUser_type(),Math.abs(userModel.getData().getAccount_balance()))
+                    .enqueue(new Callback<PayPalLinkModel>() {
+                        @Override
+                        public void onResponse(Call<PayPalLinkModel> call, Response<PayPalLinkModel> response) {
+                            dialog.dismiss();
+                            if (response.isSuccessful()&&response.body()!=null)
+                            {
+                                if (response.body()!=null)
+                                {
+                                   // Log.e("body",response.body().getData()+"______");
+                                    Intent intent = new Intent(activity, TelrActivity.class);
+                                    intent.putExtra("data",response.body());
+                                    startActivityForResult(intent,100);
+
+
+
+                                }else
+                                {
+                                    Toast.makeText(activity,R.string.failed, Toast.LENGTH_SHORT).show();
+                                }
+
+
+                            }else
+                            {
+
+                                if (response.code() == 500) {
+                                    Toast.makeText(activity, "Server Error", Toast.LENGTH_SHORT).show();
+
+                                }else
+                                {
+                                    Toast.makeText(activity, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+
+                                    try {
+
+                                        Log.e("error",response.code()+"_"+response.errorBody().string());
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<PayPalLinkModel> call, Throwable t) {
+                            try {
+                                dialog.dismiss();
+                                if (t.getMessage()!=null)
+                                {
+                                    Log.e("error",t.getMessage());
+                                    if (t.getMessage().toLowerCase().contains("failed to connect")||t.getMessage().toLowerCase().contains("unable to resolve host"))
+                                    {
+                                        Toast.makeText(activity,R.string.something, Toast.LENGTH_SHORT).show();
+                                    }else
+                                    {
+                                        Toast.makeText(activity,t.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                            }catch (Exception e){}
+                        }
+                    });
+        }catch (Exception e){
+            dialog.dismiss();
+
+        }
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+       getUserDataById(userModel.getData().getUser_id());
+       Log.e("lokkkk","llll");
+
+    }
+    private void getUserDataById(String user_id) {
+        ProgressDialog dialog = Common.createProgressDialog(activity,getString(R.string.wait));
+        dialog.setCancelable(false);
+        dialog.show();
+        Api.getService(Tags.base_url)
+                .getUserDataById(user_id)
+                .enqueue(new Callback<UserModel>() {
+                    @Override
+                    public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                        dialog.dismiss();
+                        if (response.isSuccessful() && response.body() != null) {
+                            updateUserData(response.body());
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UserModel> call, Throwable t) {
+                        try {
+                            dialog.dismiss();
+                            Log.e("Error", t.getMessage());
+                        } catch (Exception e) {
+                        }
+                    }
+                });
     }
 
 }

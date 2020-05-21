@@ -97,7 +97,13 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.endpoint.fastone.activities_fragments.activity_home.client_home.activity.ClientHomeActivity"
+        android:name="com.endpoint.fastone.activities_fragments.activity_home.client_home.activity.ClientHomeActivity"
+        android:configChanges="orientation|screenSize|keyboardHidden"
+        android:excludeFromRecents="true"
+        android:launchMode="singleTask"
+        android:taskAffinity="" />
+        <activity
+            android:name=".activities_fragments.telr_activity.TelrActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:excludeFromRecents="true"
             android:launchMode="singleTask"

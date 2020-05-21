@@ -980,6 +980,6 @@ public class Fragment_Reserve_Order extends Fragment {
     public void updateUserData(UserModel userModel) {
         this.userModel=userModel;
         userSingleTone.setUserModel(userModel);
-        cons_add_coupon.setVisibility(View.GONE);
+     //   cons_add_coupon.setVisibility(View.GONE);
     }
 }
