@@ -822,8 +822,8 @@ tv_title=findViewById(R.id.tvTitle);
                         Log.e("datttaa", response.body() + "_");
                         progBar.setVisibility(View.GONE);
                         if (response.isSuccessful()) {
+                            ll_bill.setVisibility(View.GONE);
                             if (adapter == null) {
-                                ll_bill.setVisibility(View.GONE);
                                 messageModelList.add(response.body());
                                 adapter = new ChatAdapter(messageModelList, userModel.getData().getUser_id(), chatUserModel.getImage(), ChatActivity.this);
                                 recView.setAdapter(adapter);
