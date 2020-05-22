@@ -111,6 +111,7 @@ public class FireBaseMessaging extends FirebaseMessagingService {
             String driver_offer = map.get("driver_offer");
             String message_type = map.get("chat_message_type");
             String msg_image = map.get("file");
+            String total_cost=map.get("bill_amount");
 
             ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
             String class_name = activityManager.getRunningTasks(1).get(0).topActivity.getClassName();
@@ -118,7 +119,7 @@ public class FireBaseMessaging extends FirebaseMessagingService {
             if (class_name.equals("com.endpoint.fastone.activities_fragments.activity_chat.ChatActivity")) {
                 if (room_id_fk.equals(getChatUserModel().getRoom_id())) {
 
-                    MessageModel messageModel = new MessageModel(message_id,room_id_fk,date,message,message_type,msg_image,from_user_id,from_name,from_user_image,from_user_phone_code,from_user_phone,to_user_id,to_user_full_name,to_user_image,to_user_phone_code,to_user_phone);
+                    MessageModel messageModel = new MessageModel(message_id,room_id_fk,date,message,message_type,msg_image,from_user_id,from_name,from_user_image,from_user_phone_code,from_user_phone,to_user_id,to_user_full_name,to_user_image,to_user_phone_code,to_user_phone,bill_step,total_cost);
                     EventBus.getDefault().post(messageModel);
                 }
                 else {
@@ -141,7 +142,7 @@ public class FireBaseMessaging extends FirebaseMessagingService {
                     builder.setContentTitle(map.get("from_name"));
 
                     Intent intent = new Intent(this, ChatActivity.class);
-                    ChatUserModel chatUserModel = new ChatUserModel(from_name, from_user_image, from_user_id, room_id_fk, from_user_phone_code, from_user_phone_code,order_id,driver_offer,bill_step);
+                    ChatUserModel chatUserModel = new ChatUserModel(from_name, from_user_image, from_user_id, room_id_fk, from_user_phone_code, from_user_phone_code,order_id,driver_offer,bill_step,total_cost);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     intent.putExtra("data", chatUserModel);
                     PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -215,7 +216,7 @@ public class FireBaseMessaging extends FirebaseMessagingService {
                 builder.setContentTitle(map.get("from_name"));
 
                 Intent intent = new Intent(this, ChatActivity.class);
-                ChatUserModel chatUserModel = new ChatUserModel(from_name, from_user_image, from_user_id, room_id_fk, from_user_phone_code, from_user_phone_code,order_id,driver_offer,bill_step);
+                ChatUserModel chatUserModel = new ChatUserModel(from_name, from_user_image, from_user_id, room_id_fk, from_user_phone_code, from_user_phone_code,order_id,driver_offer,bill_step,total_cost);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.putExtra("data", chatUserModel);
                 PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -312,6 +313,102 @@ public class FireBaseMessaging extends FirebaseMessagingService {
         else if(notification_type.equals("order_other_accept")){
 UserModel userModel=new UserModel();
         EventBus.getDefault().post(userModel);
+        }
+        else if(notification_type.equals(Tags.FIREBASE_Order_Deleted)) {
+
+            String CHANNEL_ID = "my_channel_02";
+            CharSequence CHANNEL_NAME = "my_channel_name";
+            int IMPORTANCE = NotificationManager.IMPORTANCE_HIGH;
+
+            final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+            final NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, IMPORTANCE);
+            channel.setShowBadge(true);
+            channel.setSound(Uri.parse(sound_Path), new AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .setUsage(AudioAttributes.USAGE_NOTIFICATION_EVENT)
+                    .setLegacyStreamType(AudioManager.STREAM_NOTIFICATION)
+                    .build()
+            );
+
+            builder.setChannelId(CHANNEL_ID);
+            builder.setSound(Uri.parse(sound_Path), AudioManager.STREAM_NOTIFICATION);
+            builder.setSmallIcon(R.mipmap.ic_notification);
+
+
+
+                builder.setContentTitle(map.get("from_name"));
+
+                Intent intent = new Intent(this, ClientHomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                //String order_status = map.get("order_status");
+           // Log.e("order_status",order_status+"_");
+                final NotStateModel notStateModel = new NotStateModel(notification_type);
+
+
+                    builder.setContentText(getString(R.string.order_delete));
+
+
+
+                intent.putExtra("status", notification_type);
+
+                PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                builder.setContentIntent(pendingIntent);
+
+                final Target target = new Target() {
+                    @Override
+                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                        if (manager != null) {
+                            builder.setLargeIcon(bitmap);
+                            EventBus.getDefault().post(notStateModel);
+                            manager.createNotificationChannel(channel);
+                            manager.notify(new Random().nextInt(200), builder.build());
+                        }
+
+                    }
+
+                    @Override
+                    public void onBitmapFailed(Drawable errorDrawable) {
+
+                    }
+
+                    @Override
+                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                    }
+                };
+
+
+                new Handler(Looper.getMainLooper())
+                        .postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                String from_image = map.get("from_image");
+                                if (from_image.equals("0"))
+                                {
+
+                                    Picasso.with(FireBaseMessaging.this).load(R.drawable.logo_only).into(target);
+
+                                }else
+                                {
+                                    Picasso.with(FireBaseMessaging.this).load(Uri.parse(Tags.IMAGE_URL + from_image)).resize(250,250).into(target);
+
+                                }
+
+
+
+
+                            }
+                        }, 1);
+
+
+
+
+
+
+
+
         }
         else {
 
@@ -596,6 +693,8 @@ UserModel userModel=new UserModel();
             String to_user_id = map.get("to_user");
             String from_name = map.get("from_user_full_name");
             String bill_step=map.get("bill_step");
+            String total_cost=map.get("bill_amount");
+
             final String from_user_image = map.get("from_user_image");
             String from_user_phone_code = map.get("from_user_phone_code");
             String from_user_phone = map.get("from_user_phone");
@@ -614,7 +713,7 @@ UserModel userModel=new UserModel();
             if (class_name.equals("com.endpoint.fastone.activities_fragments.activity_chat.ChatActivity")) {
                 if (room_id_fk.equals(getChatUserModel().getRoom_id())) {
 
-                    MessageModel messageModel = new MessageModel(message_id,room_id_fk,date,message,message_type,msg_image,from_user_id,from_name,from_user_image,from_user_phone_code,from_user_phone,to_user_id,to_user_full_name,to_user_image,to_user_phone_code,to_user_phone);
+                    MessageModel messageModel = new MessageModel(message_id,room_id_fk,date,message,message_type,msg_image,from_user_id,from_name,from_user_image,from_user_phone_code,from_user_phone,to_user_id,to_user_full_name,to_user_image,to_user_phone_code,to_user_phone,bill_step,total_cost);
                     EventBus.getDefault().post(messageModel);
                 } else {
 
@@ -625,7 +724,7 @@ UserModel userModel=new UserModel();
                     builder.setContentTitle(map.get("from_name"));
 
                     Intent intent = new Intent(this, ChatActivity.class);
-                    ChatUserModel chatUserModel = new ChatUserModel(from_name, from_user_image, from_user_id, room_id_fk, from_user_phone_code, from_user_phone_code,order_id,driver_offer,bill_step);
+                    ChatUserModel chatUserModel = new ChatUserModel(from_name, from_user_image, from_user_id, room_id_fk, from_user_phone_code, from_user_phone_code,order_id,driver_offer,bill_step,total_cost);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     intent.putExtra("data", chatUserModel);
                     PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -687,7 +786,7 @@ UserModel userModel=new UserModel();
                 builder.setContentTitle(map.get("from_name"));
 
                 Intent intent = new Intent(this, ChatActivity.class);
-                ChatUserModel chatUserModel = new ChatUserModel(from_name, from_user_image, from_user_id, room_id_fk, from_user_phone_code, from_user_phone_code,order_id,driver_offer,bill_step);
+                ChatUserModel chatUserModel = new ChatUserModel(from_name, from_user_image, from_user_id, room_id_fk, from_user_phone_code, from_user_phone_code,order_id,driver_offer,bill_step,total_cost);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.putExtra("data", chatUserModel);
                 PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);

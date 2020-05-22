@@ -52,6 +52,19 @@ public class OrderDataModel implements Serializable {
         private String order_time;
         private String place_name;
         private String bill_step;
+private String bill_amount;
+
+        public String getBill_amount() {
+            return bill_amount;
+        }
+
+        public void setBill_step(String bill_step) {
+            this.bill_step = bill_step;
+        }
+
+        public void setBill_amount(String bill_amount) {
+            this.bill_amount = bill_amount;
+        }
 
         public String getBill_step() {
             return bill_step;

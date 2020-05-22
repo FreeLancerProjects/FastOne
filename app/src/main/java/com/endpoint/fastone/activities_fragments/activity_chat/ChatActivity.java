@@ -45,11 +45,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.endpoint.fastone.R;
 import com.endpoint.fastone.activities_fragments.activity_home.client_home.activity.ClientHomeActivity;
+import com.endpoint.fastone.activities_fragments.telr_activity.TelrActivity;
 import com.endpoint.fastone.adapters.ChatAdapter;
 import com.endpoint.fastone.language.Language_Helper;
+import com.endpoint.fastone.models.BillDataModel;
 import com.endpoint.fastone.models.ChatUserModel;
 import com.endpoint.fastone.models.MessageDataModel;
 import com.endpoint.fastone.models.MessageModel;
+import com.endpoint.fastone.models.PayPalLinkModel;
 import com.endpoint.fastone.models.TypingModel;
 import com.endpoint.fastone.models.UserModel;
 import com.endpoint.fastone.preferences.Preferences;
@@ -279,8 +282,12 @@ tv_title=findViewById(R.id.tvTitle);
         ll_bill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(userModel.getData().getUser_type().equals(Tags.TYPE_DELEGATE)){
                 which_image_upload_selected = 1;
-                CreateImageAlertDialog();
+                CreateImageAlertDialog();}
+                else {
+pay();
+                }
             }
         });
         imagePlay.setOnClickListener(view -> {
@@ -645,6 +652,34 @@ tv_title=findViewById(R.id.tvTitle);
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void ListenToNewMessage(MessageModel messageModel) {
+        if(messageModel.getBill_step()!=null){
+            if(messageModel.getBill_step().equals("bill_paid")){
+                ll_bill.setVisibility(View.GONE);
+
+            }
+        else if (userModel.getData().getUser_type().equals(Tags.TYPE_CLIENT)&&messageModel.getBill_step().equals("not_attach")) {
+            ll_bill.setVisibility(View.GONE);
+        }
+        else if(userModel.getData().getUser_type().equals(Tags.TYPE_DELEGATE)&&messageModel.getBill_step().equals("not_attach"))
+        {
+            ll_bill.setVisibility(View.VISIBLE);
+
+        }
+        else if(userModel.getData().getUser_type().equals(Tags.TYPE_DELEGATE)&&!messageModel.getBill_step().equals("not_attach"))
+        {
+            ll_bill.setVisibility(View.GONE);
+
+        }
+        else if(userModel.getData().getUser_type().equals(Tags.TYPE_CLIENT)&&!messageModel.getBill_step().equals("not_attach"))
+        {
+            tv_title.setText(getResources().getString(R.string.pay));
+
+            ll_bill.setVisibility(View.VISIBLE);
+
+        }}
+        if(messageModel.getTotal_cost()!=null){
+            chatUserModel.setTotla_cost(messageModel.getTotal_cost());
+        }
         if (adapter == null) {
             messageModelList.add(messageModel);
             adapter = new ChatAdapter(messageModelList, userModel.getData().getUser_id(), chatUserModel.getImage(), ChatActivity.this);
@@ -702,7 +737,12 @@ tv_title=findViewById(R.id.tvTitle);
     }
 
     private void UpdateUI(ChatUserModel chatUserModel) {
-        if (userModel.getData().getUser_type().equals(Tags.TYPE_CLIENT)&&chatUserModel.getBill_step().equals("not_attach")) {
+        if(chatUserModel.getBill_step().equals("bill_paid")){
+            ll_bill.setVisibility(View.GONE);
+
+        }
+
+        else if (userModel.getData().getUser_type().equals(Tags.TYPE_CLIENT)&&chatUserModel.getBill_step().equals("not_attach")) {
             ll_bill.setVisibility(View.GONE);
         }
         else if(userModel.getData().getUser_type().equals(Tags.TYPE_DELEGATE)&&chatUserModel.getBill_step().equals("not_attach"))
@@ -1141,6 +1181,7 @@ tv_title=findViewById(R.id.tvTitle);
             } else if (which_image_upload_selected == 2) {
                 SendMessage("0", Tags.MESSAGE_IMAGE_TEXT);
 
+
             }
 
         } else if (requestCode == IMG2 && resultCode == Activity.RESULT_OK && data != null) {
@@ -1158,6 +1199,10 @@ tv_title=findViewById(R.id.tvTitle);
             }
 
         }
+        else if(requestCode==100){
+            ll_bill.setVisibility(View.GONE);
+        }
+
     }
 
     public void CreateBillAlertDialog(Uri uri) {
@@ -1217,6 +1262,8 @@ tv_title=findViewById(R.id.tvTitle);
     }
 
     private void Back() {
+        BillDataModel.setBill_step(chatUserModel.getBill_step());
+        BillDataModel.setTotla_Cost(chatUserModel.getTotla_cost());
         if (from) {
             finish();
         } else {
@@ -1258,5 +1305,81 @@ tv_title=findViewById(R.id.tvTitle);
             return null;
         }
     }
+    public void pay() {
+
+        ProgressDialog dialog = Common.createProgressDialog(this,getString(R.string.wait));
+        dialog.setCancelable(false);
+        dialog.show();
+        try {
+
+            Api.getService(Tags.base_url)
+                    .getbillpay(userModel.getData().getUser_id(),chatUserModel.getOrder_id(),chatUserModel.getTotla_cost())
+                    .enqueue(new Callback<PayPalLinkModel>() {
+                        @Override
+                        public void onResponse(Call<PayPalLinkModel> call, Response<PayPalLinkModel> response) {
+                            dialog.dismiss();
+                            if (response.isSuccessful()&&response.body()!=null)
+                            {
+                                if (response.body()!=null)
+                                {
+                                    // Log.e("body",response.body().getData()+"______");
+                                    Intent intent = new Intent(ChatActivity.this, TelrActivity.class);
+                                    intent.putExtra("data",response.body());
+                                    startActivityForResult(intent,100);
+
+
+
+                                }else
+                                {
+                                    Toast.makeText(ChatActivity.this,R.string.failed, Toast.LENGTH_SHORT).show();
+                                }
+
+
+                            }else
+                            {
+
+                                if (response.code() == 500) {
+                                    Toast.makeText(ChatActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+
+                                }else
+                                {
+                                    Toast.makeText(ChatActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+
+                                    try {
+
+                                        Log.e("error",response.code()+"_"+response.errorBody().string());
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<PayPalLinkModel> call, Throwable t) {
+                            try {
+                                dialog.dismiss();
+                                if (t.getMessage()!=null)
+                                {
+                                    Log.e("error",t.getMessage());
+                                    if (t.getMessage().toLowerCase().contains("failed to connect")||t.getMessage().toLowerCase().contains("unable to resolve host"))
+                                    {
+                                        Toast.makeText(ChatActivity.this,R.string.something, Toast.LENGTH_SHORT).show();
+                                    }else
+                                    {
+                                        Toast.makeText(ChatActivity.this,t.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                            }catch (Exception e){}
+                        }
+                    });
+        }catch (Exception e){
+            dialog.dismiss();
+
+        }
+
+    }
+
 
 }

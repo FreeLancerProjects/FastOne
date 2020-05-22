@@ -207,7 +207,7 @@ public class ClientHomeActivity extends AppCompatActivity implements GoogleApiCl
                     String status = intent.getStringExtra("status");
 
                     Log.e("status", status + "");
-                    if (status.equals(String.valueOf(Tags.STATE_ORDER_NEW))) {
+                    if (status.equals(String.valueOf(Tags.STATE_ORDER_NEW))||status.equals(Tags.FIREBASE_Order_Deleted)) {
 
                         DisplayFragmentMyOrders();
 
@@ -227,7 +227,8 @@ public class ClientHomeActivity extends AppCompatActivity implements GoogleApiCl
                                         manager.cancelAll();
                                     }
                                 }, 1);
-                    } else if (status.equals(String.valueOf(Tags.STATE_DELEGATE_SEND_OFFER))) {
+                    }
+                    else if (status.equals(String.valueOf(Tags.STATE_DELEGATE_SEND_OFFER))) {
                         new Handler()
                                 .postDelayed(new Runnable() {
                                     @Override
@@ -481,6 +482,28 @@ public class ClientHomeActivity extends AppCompatActivity implements GoogleApiCl
                         }
                     }, 1);
         }
+        else {
+         if(notStateModel.getNotification_state().equals(Tags.FIREBASE_Order_Deleted)){
+             if (fragment_delegate_current_order_details != null && fragment_delegate_current_order_details.isAdded()) {
+                 new Handler()
+                         .postDelayed(new Runnable() {
+                             @Override
+                             public void run() {
+                              //   fragment_client_order_details.updateStepView(Integer.parseInt(notStateModel.getNotification_state()));
+                                 cDeleteOrder();
+                             }
+                         }, 1);
+             }
+             else {
+                 new Handler()
+                         .postDelayed(new Runnable() {
+                             @Override
+                             public void run() {
+                                 //   fragment_client_order_details.updateStepView(Integer.parseInt(notStateModel.getNotification_state()));
+fragment_client_orders.getOrders();                             }
+                         }, 1);
+             }
+        }}
 
         canRead = true;
         RefreshFragment_Notification();
@@ -2192,7 +2215,9 @@ public class ClientHomeActivity extends AppCompatActivity implements GoogleApiCl
         }
 if(fragment_client_orders!=null&&fragment_client_orders.isAdded()){
     fragment_client_orders.getOrders();
+
 }
+
         /*if (requestCode == 33) {
             if (isGpsOpen()) {
                 StartService(LocationRequest.PRIORITY_LOW_POWER);
@@ -2514,5 +2539,14 @@ if(fragment_client_orders!=null&&fragment_client_orders.isAdded()){
         if(fragment_client_profile!=null&&fragment_client_profile.isAdded()){
 fragment_client_profile.pay();
         }
+
+    }
+    public void cDeleteOrder(){
+        if(fragment_client_orders!=null){
+            Back();
+            fragment_client_orders.getOrders();
+
+        }
+
     }
 }

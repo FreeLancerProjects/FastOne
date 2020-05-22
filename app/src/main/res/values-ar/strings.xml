@@ -331,5 +331,6 @@
     <string name="rechager">شحن الرصيد</string>
     <string name="you_pay">سوف تدفع</string>
     <string name="pay">دفع</string>
+    <string name="order_delete">العميل حذف الطلب</string>
 
 </resources>

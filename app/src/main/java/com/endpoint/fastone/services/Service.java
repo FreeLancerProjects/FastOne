@@ -448,6 +448,19 @@ public interface Service {
             @Field("user_type") String user_type,
             @Field("amount") double amount
     );
+    @FormUrlEncoded
+    @POST("/api/deleteOrder")
+    Call<ResponseBody> DelteOrder(
+            @Field("user_id") String user_id,
+            @Field("order_id") String order_id
+    );
+    @FormUrlEncoded
+    @POST("http://sub.quick.com.sa/api/online-payment-bill")
+    Call<PayPalLinkModel> getbillpay(
+            @Field("user_id") String user_id,
+            @Field("order_id") String order_id,
+            @Field("bill_amount") String bill_amount
+    );
 }
 
 

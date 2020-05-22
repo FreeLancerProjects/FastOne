@@ -13,13 +13,17 @@ public class ChatUserModel implements Serializable {
     private String order_id;
     private String offer_cost;
 private String bill_step;
+private String totla_cost;
 
+    public void setTotla_cost(String totla_cost) {
+        this.totla_cost = totla_cost;
+    }
 
     public String getBill_step() {
         return bill_step;
     }
 
-    public ChatUserModel(String name, String image, String id, String room_id, String phone_code, String phone, String order_id, String offer_cost,String bill_step) {
+    public ChatUserModel(String name, String image, String id, String room_id, String phone_code, String phone, String order_id, String offer_cost,String bill_step,String totla_cost) {
         this.name = name;
         this.image = image;
         this.id = id;
@@ -29,6 +33,7 @@ private String bill_step;
         this.order_id = order_id;
         this.offer_cost = offer_cost;
         this.bill_step=bill_step;
+        this.totla_cost=totla_cost;
     }
 
     public String getName() {
@@ -61,5 +66,9 @@ private String bill_step;
 
     public String getOffer_cost() {
         return offer_cost;
+    }
+
+    public String getTotla_cost() {
+        return totla_cost;
     }
 }

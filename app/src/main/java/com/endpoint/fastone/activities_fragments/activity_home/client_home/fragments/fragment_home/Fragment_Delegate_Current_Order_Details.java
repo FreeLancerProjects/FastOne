@@ -32,6 +32,7 @@ import androidx.fragment.app.Fragment;
 
 import com.endpoint.fastone.R;
 import com.endpoint.fastone.activities_fragments.activity_home.client_home.activity.ClientHomeActivity;
+import com.endpoint.fastone.models.BillDataModel;
 import com.endpoint.fastone.models.ChatUserModel;
 import com.endpoint.fastone.models.OrderDataModel;
 import com.endpoint.fastone.models.UserModel;
@@ -177,7 +178,7 @@ public class Fragment_Delegate_Current_Order_Details extends Fragment {
             @Override
             public void onClick(View v) {
 
-                ChatUserModel chatUserModel = new ChatUserModel(order.getClient_user_full_name(),order.getClient_user_image(),order.getClient_id(),order.getRoom_id_fk(),order.getClient_user_phone_code(),order.getClient_user_phone(),order.getOrder_id(),order.getDriver_offer(),order.getBill_step());
+                ChatUserModel chatUserModel = new ChatUserModel(order.getClient_user_full_name(),order.getClient_user_image(),order.getClient_id(),order.getRoom_id_fk(),order.getClient_user_phone_code(),order.getClient_user_phone(),order.getOrder_id(),order.getDriver_offer(),order.getBill_step(),order.getBill_amount());
                 activity.NavigateToChatActivity(chatUserModel,"from_fragment");
             }
         });
@@ -417,9 +418,10 @@ public class Fragment_Delegate_Current_Order_Details extends Fragment {
             }
 
         }
-
-
-    }
+if(BillDataModel.getBill_step()!=null){
+        order.setBill_step(BillDataModel.getBill_step());
+        order.setBill_amount(BillDataModel.getTotla_Cost());
+    }}
 
 
     @Override
