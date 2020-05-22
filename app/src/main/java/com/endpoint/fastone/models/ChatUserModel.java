@@ -19,6 +19,10 @@ private String totla_cost;
         this.totla_cost = totla_cost;
     }
 
+    public void setBill_step(String bill_step) {
+        this.bill_step = bill_step;
+    }
+
     public String getBill_step() {
         return bill_step;
     }

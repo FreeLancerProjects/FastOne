@@ -863,6 +863,7 @@ pay();
                         progBar.setVisibility(View.GONE);
                         if (response.isSuccessful()) {
                             ll_bill.setVisibility(View.GONE);
+                            chatUserModel.setBill_step("bill_attach");
                             if (adapter == null) {
                                 messageModelList.add(response.body());
                                 adapter = new ChatAdapter(messageModelList, userModel.getData().getUser_id(), chatUserModel.getImage(), ChatActivity.this);
@@ -1339,7 +1340,11 @@ pay();
 
                             }else
                             {
-
+                                try {
+                                    Log.e("dlldldl",response.errorBody().string());
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                                 if (response.code() == 500) {
                                     Toast.makeText(ChatActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
 
