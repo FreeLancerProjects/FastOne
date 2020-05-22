@@ -444,6 +444,9 @@ if(userModel.getData().getAccount_balance()!=0.0) {
 
     }
 }
+else {
+    Common.CreateSuccessDialog(activity,activity.getResources().getString(R.string.you_cant));
+}
     }
 
     @Override
