@@ -379,79 +379,71 @@ cons_pay.setOnClickListener(new View.OnClickListener() {
         dialog.show();
     }
     public void pay() {
+if(userModel.getData().getAccount_balance()!=0.0) {
+    ProgressDialog dialog = Common.createProgressDialog(activity, getString(R.string.wait));
+    dialog.setCancelable(false);
+    dialog.show();
+    try {
 
-        ProgressDialog dialog = Common.createProgressDialog(activity,getString(R.string.wait));
-        dialog.setCancelable(false);
-        dialog.show();
-        try {
-
-            Api.getService(Tags.base_url)
-                    .getPayPalLink(userModel.getData().getUser_id(),userModel.getData().getUser_type(),Math.abs(userModel.getData().getAccount_balance()))
-                    .enqueue(new Callback<PayPalLinkModel>() {
-                        @Override
-                        public void onResponse(Call<PayPalLinkModel> call, Response<PayPalLinkModel> response) {
-                            dialog.dismiss();
-                            if (response.isSuccessful()&&response.body()!=null)
-                            {
-                                if (response.body()!=null)
-                                {
-                                   // Log.e("body",response.body().getData()+"______");
-                                    Intent intent = new Intent(activity, TelrActivity.class);
-                                    intent.putExtra("data",response.body());
-                                    startActivityForResult(intent,100);
+        Api.getService(Tags.base_url)
+                .getPayPalLink(userModel.getData().getUser_id(), userModel.getData().getUser_type(), Math.abs(userModel.getData().getAccount_balance()))
+                .enqueue(new Callback<PayPalLinkModel>() {
+                    @Override
+                    public void onResponse(Call<PayPalLinkModel> call, Response<PayPalLinkModel> response) {
+                        dialog.dismiss();
+                        if (response.isSuccessful() && response.body() != null) {
+                            if (response.body() != null) {
+                                // Log.e("body",response.body().getData()+"______");
+                                Intent intent = new Intent(activity, TelrActivity.class);
+                                intent.putExtra("data", response.body());
+                                startActivityForResult(intent, 100);
 
 
-
-                                }else
-                                {
-                                    Toast.makeText(activity,R.string.failed, Toast.LENGTH_SHORT).show();
-                                }
+                            } else {
+                                Toast.makeText(activity, R.string.failed, Toast.LENGTH_SHORT).show();
+                            }
 
 
-                            }else
-                            {
+                        } else {
 
-                                if (response.code() == 500) {
-                                    Toast.makeText(activity, "Server Error", Toast.LENGTH_SHORT).show();
+                            if (response.code() == 500) {
+                                Toast.makeText(activity, "Server Error", Toast.LENGTH_SHORT).show();
 
-                                }else
-                                {
-                                    Toast.makeText(activity, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(activity, getString(R.string.failed), Toast.LENGTH_SHORT).show();
 
-                                    try {
+                                try {
 
-                                        Log.e("error",response.code()+"_"+response.errorBody().string());
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
+                                    Log.e("error", response.code() + "_" + response.errorBody().string());
+                                } catch (IOException e) {
+                                    e.printStackTrace();
                                 }
                             }
                         }
+                    }
 
-                        @Override
-                        public void onFailure(Call<PayPalLinkModel> call, Throwable t) {
-                            try {
-                                dialog.dismiss();
-                                if (t.getMessage()!=null)
-                                {
-                                    Log.e("error",t.getMessage());
-                                    if (t.getMessage().toLowerCase().contains("failed to connect")||t.getMessage().toLowerCase().contains("unable to resolve host"))
-                                    {
-                                        Toast.makeText(activity,R.string.something, Toast.LENGTH_SHORT).show();
-                                    }else
-                                    {
-                                        Toast.makeText(activity,t.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
+                    @Override
+                    public void onFailure(Call<PayPalLinkModel> call, Throwable t) {
+                        try {
+                            dialog.dismiss();
+                            if (t.getMessage() != null) {
+                                Log.e("error", t.getMessage());
+                                if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
+                                    Toast.makeText(activity, R.string.something, Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(activity, t.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
+                            }
 
-                            }catch (Exception e){}
+                        } catch (Exception e) {
                         }
-                    });
-        }catch (Exception e){
-            dialog.dismiss();
+                    }
+                });
+    } catch (Exception e) {
+        dialog.dismiss();
 
-        }
-
+    }
+}
     }
 
     @Override
