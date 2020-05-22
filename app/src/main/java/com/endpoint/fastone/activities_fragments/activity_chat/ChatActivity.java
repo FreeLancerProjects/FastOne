@@ -1202,6 +1202,7 @@ pay();
         else if(requestCode==100){
             ll_bill.setVisibility(View.GONE);
             BillDataModel.setBill_step("bill_paid");
+            BillDataModel.setTotla_Cost(chatUserModel.getTotla_cost());
         }
 
     }
