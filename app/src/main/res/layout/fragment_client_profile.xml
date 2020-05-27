@@ -481,6 +481,7 @@ android:visibility="gone"
                 android:paddingStart="16dp"
                 tools:ignore="RtlCompat,RtlSymmetry"
                 android:background="@color/white"
+                android:visibility="gone"
 
                 >
                 <TextView
@@ -513,7 +514,9 @@ android:visibility="gone"
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/gray5"/>
+                android:background="@color/gray5"
+                android:visibility="gone"
+                />
 
 
             <androidx.constraintlayout.widget.ConstraintLayout

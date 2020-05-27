@@ -144,7 +144,13 @@ public class Fragment_Client_Profile extends Fragment {
 cons_pay.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
+        if(userModel.getData().getAccount_balance()!=0){
         Common.CreatePAyDialog(activity,activity.getResources().getString(R.string.you_pay)+Math.abs(userModel.getData().getAccount_balance()));
+    }
+
+    else {
+        Common.CreateSuccessDialog(activity,activity.getResources().getString(R.string.you_cant));
+    }
     }
 });
         cons_register_delegate.setOnClickListener(new View.OnClickListener() {
