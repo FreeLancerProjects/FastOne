@@ -481,6 +481,7 @@ android:visibility="gone"
                 android:paddingStart="16dp"
                 tools:ignore="RtlCompat,RtlSymmetry"
                 android:background="@color/white"
+                android:visibility="gone"
 
                 >
                 <TextView

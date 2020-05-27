@@ -331,7 +331,7 @@ We inform you that the application commission (20%) is calculated on a single tr
     <string name="place_name">place name</string>
     <string name="pls_upload_img_bill">Please Upload Bill Image.</string>
     <string name="bank_account_number">Bank Account Number</string>
-    <string name="rechager">Recharge Amount</string>
+    <string name="rechager">Pay Amount</string>
     <string name="you_pay">You Will Pay</string>
     <string name="pay">Pay</string>
     <string name="order_delete">Client Delete Order</string>

@@ -13,6 +13,7 @@ import com.endpoint.fastone.models.NotificationCountModel;
 import com.endpoint.fastone.models.NotificationDataModel;
 import com.endpoint.fastone.models.OrderDataModel;
 import com.endpoint.fastone.models.OrderIdDataModel;
+import com.endpoint.fastone.models.OrderModel;
 import com.endpoint.fastone.models.PayPalLinkModel;
 import com.endpoint.fastone.models.PlaceDetailsModel;
 import com.endpoint.fastone.models.PlaceDirectionModel;
@@ -237,6 +238,8 @@ public interface Service {
 
     @GET("/api/clientOrders")
     Call<OrderDataModel> getClientOrders(@Query("user_id") String user_id, @Query("order_type") String order_type, @Query("page") int page);
+    @GET("/api/clientOrders")
+    Call<OrderModel> getClientOrders(@Query("order_id")String order_id);
 
 
     @GET("/api/driverOrders")
@@ -356,6 +359,7 @@ public interface Service {
                                          @Part("message_type") RequestBody message_type,
                                          @Part("bill_amount") RequestBody bill_amount,
                                          @Part("order_id") RequestBody order_id,
+                                         @Part("network_value") RequestBody network_value,
                                          @Part MultipartBody.Part messagefile_type
 
 

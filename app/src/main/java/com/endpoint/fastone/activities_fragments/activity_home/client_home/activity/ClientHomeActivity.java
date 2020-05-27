@@ -851,6 +851,9 @@ fragment_client_orders.getOrders();                             }
         if (fragment_client_orders == null) {
             fragment_client_orders = Fragment_Client_Orders.newInstance();
         }
+        else {
+            fragment_client_orders.getOrders();
+        }
 
         if (fragment_client_orders.isAdded()) {
             fragmentManager.beginTransaction().show(fragment_client_orders).commit();
@@ -885,6 +888,9 @@ fragment_client_orders.getOrders();                             }
 
         if (fragment_client_notifications == null) {
             fragment_client_notifications = Fragment_Client_Notifications.newInstance();
+        }
+        else {
+            fragment_client_notifications.getNotification();
         }
 
         if (fragment_client_notifications.isAdded()) {

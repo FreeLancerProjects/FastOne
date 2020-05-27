@@ -286,6 +286,7 @@ DeleteOrder();
                 image1.setImageResource(R.drawable.step_green_true);
                 view1.setBackgroundColor(ContextCompat.getColor(activity, R.color.green_text));
                 tv1.setTextColor(ContextCompat.getColor(activity, R.color.colorPrimary));
+                fl_update_order_state.setVisibility(View.GONE);
 
                 break;
             case Tags.STATE_DELEGATE_COLLECTING_ORDER:
