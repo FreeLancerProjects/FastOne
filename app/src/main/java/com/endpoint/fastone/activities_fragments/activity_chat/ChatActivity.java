@@ -1241,8 +1241,9 @@ getOrder();
 
                     double total = Double.parseDouble(cost) + Double.parseDouble(chatUserModel.getOffer_cost());
                      network_per_totla=(total*network_per)/100;
-                     total+=network_per_totla;
-                    String msg = "تكلفة المشتريات: " + cost + " " + currency.getSymbol() + "\n" + "تكلفة التوصيل شامل ضريبة القيمه المضافه: " + chatUserModel.getOffer_cost() + " " + currency.getSymbol() + "\n" + "رسوم الشبكة: " + network_per_totla + " " + currency.getSymbol() +"\n" + "المجموع الكلي : " + total + " " + currency.getSymbol() ;
+                     network_per_totla=0;
+                  //   total+=network_per_totla;
+                    String msg = "تكلفة المشتريات: " + cost + " " + currency.getSymbol() + "\n" + "تكلفة التوصيل شامل ضريبة القيمه المضافه: " + chatUserModel.getOffer_cost()  + currency.getSymbol() +"\n" + "المجموع الكلي : " + total + " " + currency.getSymbol() ;
                     bill_amount=total+"";
                     sendلاbillMessageWithImage(msg);
 
