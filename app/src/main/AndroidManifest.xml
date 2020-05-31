@@ -67,6 +67,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.endpoint.fastone.activities_fragments.about.AboutActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity
         android:name="com.endpoint.fastone.activities_fragments.activity_sign_in.activity.SignInActivity"
         android:configChanges="orientation|screenSize|keyboardHidden"
         android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />

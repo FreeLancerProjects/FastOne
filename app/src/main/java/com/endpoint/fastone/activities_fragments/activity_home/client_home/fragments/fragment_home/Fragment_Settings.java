@@ -148,7 +148,7 @@ public class Fragment_Settings extends Fragment {
         cons_about.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.NavigateToTermsActivity(Tags.APPABOUT);
+                activity.NavigateToAboutActivity(Tags.APPABOUT);
             }
         });
 

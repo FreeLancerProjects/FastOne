@@ -32,6 +32,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.endpoint.fastone.R;
+import com.endpoint.fastone.activities_fragments.about.AboutActivity;
 import com.endpoint.fastone.activities_fragments.activity_chat.ChatActivity;
 import com.endpoint.fastone.activities_fragments.activity_home.client_home.fragments.fragment_home.Fragment_Add_Coupon;
 import com.endpoint.fastone.activities_fragments.activity_home.client_home.fragments.fragment_home.Fragment_Bank_Account;
@@ -2201,7 +2202,19 @@ fragment_client_orders.getOrders();                             }
         }
 
     }
+    public void NavigateToAboutActivity(int type) {
+        Intent intent = new Intent(this, AboutActivity.class);
+        intent.putExtra("type", type);
+        startActivity(intent);
+        if (current_lang.equals("ar")) {
+            overridePendingTransition(R.anim.from_right, R.anim.to_left);
 
+        } else {
+            overridePendingTransition(R.anim.from_left, R.anim.to_right);
+
+        }
+
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
