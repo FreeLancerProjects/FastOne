@@ -332,6 +332,6 @@
     <string name="you_pay">سوف تدفع</string>
     <string name="pay">دفع</string>
     <string name="order_delete">العميل حذف الطلب</string>
-    <string name="you_cant">لا يمكنك ان تشحن بقيمه صفر</string>
+    <string name="you_cant">تم سداد رصيدك من قبل </string>
 
 </resources>
