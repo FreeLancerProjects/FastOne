@@ -79,8 +79,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
-                                      <entry key="backgroundColor" value="ffffff" />
-                                      <entry key="foregroundImage" value="C:\android\AndroidProjects\FastOne\app\src\main\res\drawable\logo_only.png" />
+                                      <entry key="backgroundColor" value="002269" />
+                                      <entry key="foregroundImage" value="C:\Users\moham\Desktop\001 copy.png" />
                                       <entry key="outputName" value="ic_notification" />
                                     </map>
                                   </option>
@@ -120,8 +120,9 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
+                                      <entry key="backgroundColor" value="002269" />
                                       <entry key="iconShape" value="NONE" />
-                                      <entry key="imageAsset" value="C:\Users\Delta\Desktop\send.svg" />
+                                      <entry key="imageAsset" value="C:\Users\moham\Desktop\00 copy.png" />
                                     </map>
                                   </option>
                                 </PersistentState>

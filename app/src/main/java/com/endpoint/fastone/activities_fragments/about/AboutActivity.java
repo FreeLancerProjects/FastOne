@@ -156,11 +156,11 @@ public class AboutActivity extends AppCompatActivity {
     private void updateTermsContent(AppDataModel appDataModel) {
         if (current_lang.equals("ar"))
         {
-            tv_content.setText(appDataModel.getData().getAr_content());
+            tv_content.setText(appDataModel.getData().getAr_content().replaceAll("\\.","\n"));
 
         }else
         {
-            tv_content.setText(appDataModel.getData().getEn_content());
+            tv_content.setText(appDataModel.getData().getEn_content().replaceAll("\\.","\n"));
 
         }
     }
