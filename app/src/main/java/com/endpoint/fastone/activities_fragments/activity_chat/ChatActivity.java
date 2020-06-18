@@ -659,31 +659,32 @@ pay();
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void ListenToNewMessage(MessageModel messageModel) {
-        if(messageModel.getBill_step()!=null){
-            if(messageModel.getBill_step().equals("bill_paid")){
-                ll_bill.setVisibility(View.GONE);
-
-            }
-        else if (userModel.getData().getUser_type().equals(Tags.TYPE_CLIENT)&&messageModel.getBill_step().equals("not_attach")) {
-            ll_bill.setVisibility(View.GONE);
-        }
-        else if(userModel.getData().getUser_type().equals(Tags.TYPE_DELEGATE)&&messageModel.getBill_step().equals("not_attach"))
-        {
-            ll_bill.setVisibility(View.VISIBLE);
-
-        }
-        else if(userModel.getData().getUser_type().equals(Tags.TYPE_DELEGATE)&&!messageModel.getBill_step().equals("not_attach"))
-        {
-            ll_bill.setVisibility(View.GONE);
-
-        }
-        else if(userModel.getData().getUser_type().equals(Tags.TYPE_CLIENT)&&!messageModel.getBill_step().equals("not_attach"))
-        {
-            tv_title.setText(getResources().getString(R.string.pay));
-
-            ll_bill.setVisibility(View.VISIBLE);
-
-        }}
+        getOrder();
+//        if(messageModel.getBill_step()!=null){
+//            if(messageModel.getBill_step().equals("bill_paid")){
+//                ll_bill.setVisibility(View.GONE);
+//
+//            }
+//        else if (userModel.getData().getUser_type().equals(Tags.TYPE_CLIENT)&&messageModel.getBill_step().equals("not_attach")) {
+//            ll_bill.setVisibility(View.GONE);
+//        }
+//        else if(userModel.getData().getUser_type().equals(Tags.TYPE_DELEGATE)&&messageModel.getBill_step().equals("not_attach"))
+//        {
+//            ll_bill.setVisibility(View.VISIBLE);
+//
+//        }
+//        else if(userModel.getData().getUser_type().equals(Tags.TYPE_DELEGATE)&&!messageModel.getBill_step().equals("not_attach"))
+//        {
+//            ll_bill.setVisibility(View.GONE);
+//
+//        }
+//        else if(userModel.getData().getUser_type().equals(Tags.TYPE_CLIENT)&&!messageModel.getBill_step().equals("not_attach"))
+//        {
+//            tv_title.setText(getResources().getString(R.string.pay));
+//
+//            ll_bill.setVisibility(View.VISIBLE);
+//
+//        }}
         if(messageModel.getTotal_cost()!=null){
             chatUserModel.setTotla_cost(messageModel.getTotal_cost());
         }
@@ -762,7 +763,7 @@ pay();
             ll_bill.setVisibility(View.GONE);
 
         }
-        else if(userModel.getData().getUser_type().equals(Tags.TYPE_CLIENT)&&!chatUserModel.getBill_step().equals("not_attach"))
+        else if(userModel.getData().getUser_type().equals(Tags.TYPE_CLIENT)&&chatUserModel.getBill_step().equals("bill_attach"))
         {
             ll_bill.setVisibility(View.VISIBLE);
             tv_title.setText(getResources().getString(R.string.pay));
@@ -973,6 +974,7 @@ getOrder();
     }
 
     private void getChatMessages() {
+        messageModelList.clear();
         Api.getService(Tags.base_url)
                 .getChatMessages(chatUserModel.getRoom_id(), 1)
                 .enqueue(new Callback<MessageDataModel>() {
@@ -1210,9 +1212,10 @@ getOrder();
 
         }
         else if(requestCode==100){
-            ll_bill.setVisibility(View.GONE);
-            BillDataModel.setBill_step("bill_paid");
-            BillDataModel.setTotla_Cost(chatUserModel.getTotla_cost());
+//            ll_bill.setVisibility(View.GONE);
+//            BillDataModel.setBill_step("bill_paid");
+//            BillDataModel.setTotla_Cost(chatUserModel.getTotla_cost());
+            getOrder();
         }
 
     }
@@ -1435,6 +1438,13 @@ getOrder();
                 });
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getOrder();
+    }
+
     private void getOrder() {
 
         final ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
